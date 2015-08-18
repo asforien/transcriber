@@ -1,0 +1,22 @@
+.row-margin {
+	margin-top: 20px;
+}
+
+.phone-segment {
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+
+#transcriptions {
+	height: 100px;
+	position: relative;
+	overflow-x: hidden;
+}
+
+.transcription {
+	top: 0;
+	width: 35px;
+	display: block !important;
+	position: absolute !important;
+}
