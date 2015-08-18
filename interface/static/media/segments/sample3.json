@@ -1,12 +1,17 @@
 [
-	{ start: 0.10, end: 0.159 },
-	//{ start: 0.16, end: 0.289 },
-	{ start: 0.29, end: 0.329 },
-	//{ start: 0.33, end: 0.509 },
+	{ start: 0.35, end: 0.519 },
+	{ start: 0.52, end: 0.609 },
+	{ start: 0.61, end: 0.699 },
 
-	{ start: 0.95, end: 1.009 },
-	//{ start: 1.01, end: 1.209 },
-	{ start: 1.23, end: 1.309 },
-	//{ start: 1.31, end: 1.359 },
-	{ start: 1.36, end: 1.509 },
+	{ start: 0.73, end: 0.789 },
+	{ start: 0.79, end: 0.909 },
+	{ start: 0.91, end: 1.059 },
+
+	{ start: 1.33, end: 1.359 },
+	{ start: 1.36, end: 1.409 },
+	{ start: 1.41, end: 1.549 },
+
+	{ start: 1.55, end: 1.649 },
+	{ start: 1.65, end: 1.709 },
+	{ start: 1.71, end: 1.779 },
 ]

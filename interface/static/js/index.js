@@ -1,18 +1,4 @@
 var wavesurfer = Object.create(WaveSurfer);
-
-var segments = [
-	{ start: 0.10, end: 0.159 },
-	//{ start: 0.16, end: 0.289 },
-	{ start: 0.29, end: 0.329 },
-	//{ start: 0.33, end: 0.509 },
-
-	{ start: 0.95, end: 1.009 },
-	//{ start: 1.01, end: 1.209 },
-	{ start: 1.23, end: 1.309 },
-	//{ start: 1.31, end: 1.359 },
-	{ start: 1.36, end: 1.509 },
-]
-
 var regions = [];
 var selectedRegion = null;
 
@@ -72,6 +58,17 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 
 	wavesurfer.load(audio_file_path);
+
+	$("#btn-play").click(function() {
+		wavesurfer.play();
+	})
+	$("#btn-pause-resume").click(function() {
+		wavesurfer.playPause();
+	})
+	$("#btn-play-region").click(function() {
+		selectedRegion.play();
+	})
+	$("#btn-submit").click(submit);
 });
 
 function submit() {
