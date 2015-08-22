@@ -17,6 +17,6 @@ def index(request, audio_file, distinctive_feature):
 	context = {
 		'audio_file_path': 'media/' + audio_file + '.mp3',
 		'segments': segments,
-		'distinctive_feature': distinctive_feature,
+		'distinctive_feature_template': distinctive_feature + '.html',
 	}
 	return render(request, 'index.html', context)
