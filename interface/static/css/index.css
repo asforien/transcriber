@@ -20,3 +20,44 @@
 	display: block !important;
 	position: absolute !important;
 }
+
+.flex-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.flex-item {
+	border: 1px solid black;
+	border-radius: 5px;
+	width: 100px;
+	margin: 10px;
+}
+
+.positive {
+	color: green;
+	border-color: green;
+}
+
+.negative {
+	color: red;
+	border-color: red;
+}
+
+ul.flex-item {
+	padding-left: 0px;
+	margin-bottom: 0px;
+	list-style-position: inside;
+	list-style-type: none;
+}
+
+.positive li:before,
+li.positive:before {
+	content: "+ ";
+}
+
+.negative li:before,
+li.negative:before {
+	content: "- ";
+}
