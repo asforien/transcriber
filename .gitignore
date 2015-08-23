@@ -58,3 +58,7 @@ docs/_build/
 target/
 
 *.sqlite3
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
