@@ -12,11 +12,11 @@ def index(request, audio_file, distinctive_feature):
 	#	return HttpResponseNotFound('<h1>Audio file not found</h1>')
 
 	module_dir = os.path.dirname(__file__)  # get current directory
-	segment_file_path = os.path.join(module_dir, 'static/media/segments/' + audio_file + '.json')
-	segments = open(segment_file_path, 'r').read()
+	alignments_file_path = os.path.join(module_dir, 'static/data/alignments/' + audio_file + '.json')
+	alignments = open(alignments_file_path, 'r').read()
 	context = {
-		'audio_file_path': 'media/' + audio_file + '.mp3',
-		'segments': segments,
+		'audio_file_path': 'data/audio/' + audio_file + '.mp3',
+		'alignments': alignments,
 		'distinctive_feature_template': distinctive_feature + '.html',
 	}
 	return render(request, 'index.html', context)

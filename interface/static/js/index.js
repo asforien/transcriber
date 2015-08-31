@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	wavesurfer.on('ready', function () {
-		$.each(segments, function(index, segment) {
+		$.each(alignments, function(index, segment) {
 			var region = wavesurfer.addRegion({
-				start: segment.start,
-				end: segment.end,
+				start: segment[0],
+				end: segment[0] + segment[1],
 				drag: false,
 				resize: false,
 				color: "rgba(0, 0, 0, 0.2)"
