@@ -33,19 +33,24 @@ with open('durations', 'rb') as inputFile:
 
 for fileName, data in alignmentsByFile.iteritems():
 
-	cutPositions = [0]
-	cutPositions.extend(durationsByFile[fileName])
-	for i in range(1, len(cutPositions)):
-		cutPositions[i] += cutPositions[i-1]
+	# 1-second parts 
+	# cutPositions = [0]
+	# cutPositions.extend(durationsByFile[fileName])
+	# for i in range(1, len(cutPositions)):
+	# 	cutPositions[i] += cutPositions[i-1]
 
-	for part in range(1,5):
-		with open('alignments/' + fileName + '-' + str(part) + '.json', 'w') as outputFile:
-			alignmentsInRange = [[x[0] + Decimal(0.08) * part + Decimal(0.08), x[1]]
-				for x in data]
-			alignmentsInRange = [
-				[x[0] - cutPositions[part-1], x[1]]
-				for x in alignmentsInRange if
-				x[0] + x[1] > cutPositions[part-1] and
-				(part == 4 or x[0] < cutPositions[part])
-			]
-			json.dump(alignmentsInRange, outputFile, default=decimal_default)
+	# for part in range(1,5):
+	# 	with open('alignments/' + fileName + '-' + str(part) + '.json', 'w') as outputFile:
+	# 		alignmentsInRange = [[x[0] + Decimal(0.08) * part + Decimal(0.08), x[1]]
+	# 			for x in data]
+	# 		alignmentsInRange = [
+	# 			[x[0] - cutPositions[part-1], x[1]]
+	# 			for x in alignmentsInRange if
+	# 			x[0] + x[1] > cutPositions[part-1] and
+	# 			(part == 4 or x[0] < cutPositions[part])
+	# 		]
+	# 		json.dump(alignmentsInRange, outputFile, default=decimal_default)
+
+	# Full 5-second clips
+	with open('alignments/' + fileName + '.json', 'w') as outputFile:
+		json.dump(data, outputFile, default=decimal_default)

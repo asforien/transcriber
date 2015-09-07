@@ -9,7 +9,7 @@
 }
 
 #transcriptions {
-	height: 100px;
+	height: 200px;
 	position: relative;
 	overflow-x: hidden;
 }
@@ -60,4 +60,69 @@ li.positive:before {
 .negative li:before,
 li.negative:before {
 	content: "- ";
+}
+
+/* Tone numbers and contours */
+
+.tone-number {
+	height: 100px;
+	width: 100px;
+	line-height: 100px;
+	position: absolute;
+	font-size: 36px;
+}
+
+.tone {
+	height: 100px;
+	width: 100px;
+	border-bottom: 3px solid red;
+}
+
+.tone-1 {
+	-moz-transform: translate(0, -80%);
+	-webkit-transform: translate(0, -80%);
+	transform: translate(0, -80%);
+}
+
+.tone-2 {
+	-moz-transform: skewY(-40deg) translateY(-50%);
+	-webkit-transform: skewY(-40deg) translateY(-50%);
+	transform: skewY(-40deg) translateY(-50%);
+}
+
+.tone-3 {
+	-moz-transform: translate(0, -50%);
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+}
+
+.tone-4 {
+	-moz-transform: skewY(20deg) translateY(-30%);
+	-webkit-transform: skewY(20deg) translateY(-30%);
+	transform: skewY(20deg) translateY(-30%);
+}
+
+.tone-5 {
+	-moz-transform: skewY(-20deg) translateY(-30%);
+	-webkit-transform: skewY(-20deg) translateY(-30%);
+	transform: skewY(-20deg) translateY(-30%);
+}
+
+.tone-6 {
+	-moz-transform: translate(0, -20%);
+	-webkit-transform: translate(0, -20%);
+	transform: translate(0, -20%);
+}
+
+.chinese-tone-3 {
+	border-right: 3px solid red;
+	-moz-transform: translate(0, -10%) rotate(45deg) scale(0.71);
+	-webkit-transform: translate(0, -10%) rotate(45deg) scale(0.71);
+	transform: translate(0, -10%) rotate(45deg) scale(0.71);
+}
+
+.chinese-tone-4 {
+	-moz-transform: skewY(40deg) translateY(-50%);
+	-webkit-transform: skewY(40deg) translateY(-50%);
+	transform: skewY(40deg) translateY(-50%);
 }
