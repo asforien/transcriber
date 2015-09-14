@@ -3,6 +3,9 @@ var regions = [];
 var selectedRegion = null;
 
 document.addEventListener('DOMContentLoaded', function () {
+	var regionColor1 = "rgba(0, 0, 0, 0.2)";
+	var regionColor2 = "rgba(0, 0, 0, 0.3)";
+
 	wavesurfer.init({
 	    container: document.querySelector('#wave'),
 	    waveColor: 'blue',
@@ -16,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				end: segment[0] + segment[1],
 				drag: false,
 				resize: false,
-				color: "rgba(0, 0, 0, 0.2)"
+				color: index % 2 ? regionColor1 : regionColor2,
 			});
 			regions[index] = region;
 		})
@@ -30,16 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		selectedRegion = regions[0];
 		selectedRegion.update({color: "rgba(0, 255, 0, 0.2)"});
-
-        // var spectrogram = Object.create(WaveSurfer.Spectrogram);
-        // spectrogram.init({
-        //     wavesurfer: wavesurfer,
-        //     container: '#spectrogram',
-        //     fftSamples: 1024,
-        //     pixelRatio: 2
-        // });
-
-	    //wavesurfer.play();
 	});
 
 	var target = $("#transcriptions");
@@ -50,10 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	wavesurfer.on('region-click', function(region, e) {
 		e.stopPropagation();
 		if (selectedRegion != null) {
-			selectedRegion.update({color: "rgba(0, 0, 0, 0.2)"});
 		}
 		region.play();
-		region.update({color: "rgba(0, 255, 0, 0.2)"});
 		selectedRegion = region;
 	})
 
@@ -68,20 +59,21 @@ document.addEventListener('DOMContentLoaded', function () {
 	$("#btn-play-region").click(function() {
 		selectedRegion.play();
 	})
-	$("#btn-submit").click(submit);
-});
 
-function submit() {
-	var results = [];
-	$(".transcription").each(function(i) {
-		var $radioBtn = $(this).find("label.active input");
-		var result = $radioBtn.val();
-		
-		if (!result) {
-			alert("Segment " + i + " is not annotated!");
-			return false;
-		}
-		results.push($radioBtn.val());
+	$("form").submit(function(event) {
+		var results = [];
+		$(".transcription").each(function(i) {
+			var $radioBtn = $(this).find("label.active input");
+			var result = $radioBtn.val();
+			
+			// if (!result) {
+			// 	alert("Segment " + i + " is not annotated!");
+			// 	event.preventDefault();
+			// 	return false;
+			// }
+			results.push($radioBtn.val());
+		});
+		console.log(results.join(""));
+		$("#result").val(results.join(""));
 	});
-	console.log(results);
-}
+});
