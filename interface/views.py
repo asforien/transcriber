@@ -31,7 +31,7 @@ def toneFeature(request, audio_file):
 		if int(audio_file) < 30:
 			return HttpResponseRedirect('/transcribe/tone/'  + str(int(audio_file) + 1))
 		else:
-			return HttpResponseRedirect('/transcribe/done')
+			return HttpResponseRedirect('/transcribe/end')
 
 	else:
 		module_dir = os.path.dirname(__file__)  # get current directory
@@ -44,6 +44,10 @@ def toneFeature(request, audio_file):
 		}
 		return render(request, 'cantoneseTones.html', context)
 
-def done(request):
-	
-	return render(request, 'done.html')
+def toneStart(request):
+
+	return render(request, 'toneStart.html')
+
+def end(request):
+
+	return render(request, 'end.html')

@@ -65,11 +65,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			var $radioBtn = $(this).find("label.active input");
 			var result = $radioBtn.val();
 			
-			// if (!result) {
-			// 	alert("Segment " + i + " is not annotated!");
-			// 	event.preventDefault();
-			// 	return false;
-			// }
+			if (!result) {
+				alert("Segment " + i + " is not annotated!");
+				event.preventDefault();
+				return false;
+			}
 			results.push($radioBtn.val());
 		});
 		console.log(results.join(""));
