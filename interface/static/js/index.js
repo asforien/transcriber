@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		$(".transcription").eq(0).remove();
 
 		selectedRegion = regions[0];
-		selectedRegion.update({color: "rgba(0, 255, 0, 0.2)"});
 	});
 
 	var target = $("#transcriptions");

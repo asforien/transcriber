@@ -22,7 +22,7 @@
 				<button class="btn btn-default" id="btn-play-region">
 					<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Play Region
 				</button>
-				<form action="/transcribe/{{ audio_file_name }}/tone" method="post" class="form-inline pull-right">{% csrf_token %}
+				<form action="/transcribe/tone/{{ audio_file_name }}" method="post" class="form-inline pull-right">{% csrf_token %}
 					<input type="hidden" name="result" id="result">
 					<button class="btn btn-primary pull-right">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Submit
