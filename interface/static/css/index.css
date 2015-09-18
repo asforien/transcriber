@@ -75,7 +75,8 @@ li.negative:before {
 .tone {
 	height: 100px;
 	width: 100px;
-	border-bottom: 3px solid red;
+	border-bottom: 3px solid cyan;
+	z-index: -1;
 }
 
 .tone-1 {
