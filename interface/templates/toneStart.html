@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Transcriber Interface</title>
+	<title>Tone Transcription Experiment</title>
 	<link rel="stylesheet" href="{% static "css/index.css" %}">
 	<link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
 </head>
@@ -13,8 +13,47 @@
 	<div class="container-fluid">
 		<div class="row row-margin text-center">
 			<div class="col-xs-12">
-			<h1>Tone Transcription</h1><br/>
-			<a href="/transcribe/tone/1" class="btn-lg btn-primary">Begin</a>
+			<h1>Tone Transcription Experiment</h1>
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="col-xs-12">
+			<h3>Consent Form</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-lg-offset-4
+						col-md-6 col-md-offset-3
+						col-sm-8 col-sm-offset-2
+						col-xs-12 consent-form justify">
+				<br/>
+				<p><b>PURPOSE OF RESEARCH STUDY:</b> The goal of this research is to train automatic speech recognition software in many languages. Speech recognition works best if provided with training data: audio clips, each of which has been transcribed by some listeners.</p><br/>
+
+				<p><b>PROCEDURE:</b> Your task is to provide tone transcriptions for short audio clips in a language you may or may not be familiar with. There are a total of 30 audio samples in this experiment. You will be permitted to play each audio sample as many times as you like. For each audio sample, there will be a series of menus. Each menu will be time-aligned to a segment of the audio clip, using a visual display of the waveform. Your task is to select for each segment the tone number that best matches the intonation of the segment.</p><br/>
+
+				<p><b>RISKS/DISCOMFORTS:</b> Participation in this research has no risks other than the ordinary risks of using a personal computer.</p><br/>
+
+				<p><b>BENEFITS:</b> You will receive no benefits from participation. However, this study may benefit society by improving how computers process speech. This could lead to better speech recognition technologies, improved web searching, or new user interfaces for computers and mobile devices.</p><br/>
+
+				<p><b>CONFIDENTIALITY:</b> You will be asked to tell us what languages you speak, and at what age you began speaking each.  No other personal information will be collected.  Your transcriptions will be published as part of a database of speech transcriptions we are creating; no information about you will be published with the transcriptions.</p><br/>
+
+				<p><b>CONTACT INFORMATION:</b> Please contact the Principal Investigator, Nancy Chen (nfychen@i2r.a-star.edu.sg), for all research-related matters.</p>
+
+				<p>For an independent opinion regarding the research and the rights of research participants, you may contact a staff member of the National University of Singapore Institutional Review Board (Attn: Mr Chan Tuck Wai, at telephone (+65) 6516 1234 or email at irb@nus.edu.sg).</p><br/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-lg-offset-4
+						col-md-6 col-md-offset-3
+						col-sm-8 col-sm-offset-2
+						col-xs-12 justify">
+				<br/>
+				<p>By clicking on the "Accept" button, you indicate that you are 18 years of age or older, that you voluntarily agree to participate in this study and that you have read and understood the information in this consent form. You have not waived any legal rights you otherwise would have as a participant in a research study.</p>
+			</div>
+		</div>
+		<div class="row text-center"
+			<div class="col-xs-12">
+				<a href="/transcribe/tone/1" class="btn btn-primary">Accept</a>
 			</div>
 		</div>
 	</div>

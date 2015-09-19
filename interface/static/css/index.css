@@ -1,3 +1,13 @@
+.consent-form {
+	max-height: 50vh;
+	overflow: auto;
+	border: 1px solid black;
+}
+
+.justify {
+	text-align: justify;
+}
+
 .row-margin {
 	margin-top: 20px;
 }

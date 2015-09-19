@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	wavesurfer.init({
 	    container: document.querySelector('#wave'),
 	    waveColor: 'blue',
-	    progressColor: 'purple'
+	    progressColor: 'purple',
 	});
 
 	wavesurfer.on('ready', function () {
