@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from interface.models import Transcription
+from .models import Transcription
 
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.template import RequestContext, loader

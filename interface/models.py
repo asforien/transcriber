@@ -5,4 +5,4 @@ class Transcription(models.Model):
 	result = models.CharField(max_length=30)
 
 	def __str__(self):
-		return audio + ", " + result
+		return str(self.audio) + ", " + self.result
