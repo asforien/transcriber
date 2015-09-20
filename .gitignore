@@ -66,4 +66,4 @@ target/
 *.mp3
 *.wav
 data/
-transcriber/static
+static/
