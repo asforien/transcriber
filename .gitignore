@@ -64,4 +64,4 @@ target/
 !.elasticbeanstalk/*.global.yml
 
 data/
-static/
+/static/
