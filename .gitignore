@@ -63,7 +63,5 @@ target/
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
-*.mp3
-*.wav
 data/
 static/

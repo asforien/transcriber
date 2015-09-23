@@ -62,43 +62,65 @@
 
 		<div class="row row-margin text-center">
 			<div class="col-xs-12 flex-container">
-				<div class="flex-item">
+				<div class="tone-container flex-item">
 					<div class="tone-number">1</div>
+					<div class="tone-word">诗</div>
 					<div class="tone tone-1"></div>
+					<audio src="{% static "training/tone1.mp3" %}">
 				</div>
-				<div class="flex-item">
+				<div class="tone-container flex-item">
 					<div class="tone-number">2</div>
+					<div class="tone-word">史</div>
 					<div class="tone tone-2"></div>
+					<audio src="{% static "training/tone2.mp3" %}">
 				</div>
-				<div class="flex-item">
+				<div class="tone-container flex-item">
 					<div class="tone-number">3</div>
+					<div class="tone-word">试</div>
 					<div class="tone tone-3"></div>
+					<audio src="{% static "training/tone3.mp3" %}">
 				</div>
-				<div class="flex-item">
+				<div class="tone-container flex-item">
 					<div class="tone-number">4</div>
+					<div class="tone-word">时</div>
 					<div class="tone tone-4"></div>
+					<audio src="{% static "training/tone4.mp3" %}">
 				</div>
-				<div class="flex-item">
+				<div class="tone-container flex-item">
 					<div class="tone-number">5</div>
+					<div class="tone-word">市</div>
 					<div class="tone tone-5"></div>
+					<audio src="{% static "training/tone5.mp3" %}">
 				</div>
-				<div class="flex-item">
+				<div class="tone-container flex-item">
 					<div class="tone-number">6</div>
+					<div class="tone-word">事</div>
 					<div class="tone tone-6"></div>
+					<audio src="{% static "training/tone6.mp3" %}">
 				</div>
 			</div>
 		</div>
-	</body>
 
-	<script>
-		var audio_file_path = "{% static audio_file_path %}";
-		var alignments = {{ alignments|safe }};
-	</script>
+		<div class="row">
+			<div class="col-xs-12
+						col-md-6 col-md-offset-3
+						col-lg-4 col-lg-offset-4 text-center">
+				<span>Click on each box to hear a sample. Note that the tone samples are produced by a different speaker from that of the audio to be transcribed. Two words with the same tone produced by different speakers may differ in absolute pitch. Tone should be transcribed relative to the average pitch of the speaker.</span>
+			</div>
+		</div>
+	</div>
+</body>
 
-	<script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>
-	<script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
-	<script src="{% static "wavesurfer/wavesurfer.min.js" %}" type="text/javascript"></script>
-	<script src="{% static "wavesurfer/plugin/wavesurfer.regions.min.js" %}" type="text/javascript"></script>
-	<script src="{% static "wavesurfer/plugin/wavesurfer.spectrogram.min.js" %}" type="text/javascript"></script>
-	<script src="{% static "js/transcribe.js" %}" type="text/javascript"></script>
-	</html>
+<script>
+	var audio_file_path = "{% static audio_file_path %}";
+	var alignments = {{ alignments|safe }};
+</script>
+
+<script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>
+<script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+<script src="{% static "wavesurfer/wavesurfer.min.js" %}" type="text/javascript"></script>
+<script src="{% static "wavesurfer/plugin/wavesurfer.regions.min.js" %}" type="text/javascript"></script>
+<script src="{% static "wavesurfer/plugin/wavesurfer.spectrogram.min.js" %}" type="text/javascript"></script>
+<script src="{% static "js/transcribe.js" %}" type="text/javascript"></script>
+<script src="{% static "js/tones.js" %}" type="text/javascript"></script>
+</html>

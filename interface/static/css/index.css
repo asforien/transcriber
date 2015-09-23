@@ -120,18 +120,29 @@ li.negative:before {
 
 /* Tone numbers and contours */
 
+.tone-container:hover {
+	cursor: pointer;
+}
+
+.tone-word,
 .tone-number {
 	height: 100px;
-	width: 100px;
+	width: 50px;
 	line-height: 100px;
 	position: absolute;
 	font-size: 36px;
+	z-index: 1;
+}
+
+.tone-word {
+	transform: translateX(50px);
+	-webkit-transform: translateX(50px);
 }
 
 .tone {
 	height: 100px;
 	width: 100px;
-	border-bottom: 3px solid #a8c;
+	border-bottom: 5px solid #a8c;
 	z-index: -1;
 }
 
@@ -166,9 +177,9 @@ li.negative:before {
 }
 
 .tone-6 {
-	-moz-transform: translate(0, -20%);
-	-webkit-transform: translate(0, -20%);
-	transform: translate(0, -20%);
+	-moz-transform: translate(0, -35%);
+	-webkit-transform: translate(0, -35%);
+	transform: translate(0, -35%);
 }
 
 .chinese-tone-3 {
