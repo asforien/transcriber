@@ -177,9 +177,9 @@ li.negative:before {
 }
 
 .tone-6 {
-	-moz-transform: translate(0, -35%);
-	-webkit-transform: translate(0, -35%);
-	transform: translate(0, -35%);
+	-moz-transform: translate(0, -30%);
+	-webkit-transform: translate(0, -30%);
+	transform: translate(0, -30%);
 }
 
 .chinese-tone-3 {
