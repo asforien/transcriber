@@ -1,5 +1,7 @@
 # transcriber
 
+Transcription interface for crowdsourcing experiment
+
 ## Requirements
 Django
 
