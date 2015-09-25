@@ -1,0 +1,63 @@
+{% load staticfiles %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tone Transcription Experiment</title>
+	<link rel="stylesheet" href="{% static "css/index.css" %}">
+	<link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row row-margin text-center">
+			<div class="col-xs-12">
+				<h1>Tone Transcription Experiment</h1>
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="col-xs-12">
+				<h3>Demographic Survey</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-lg-offset-4
+			col-md-6 col-md-offset-3
+			col-sm-8 col-sm-offset-2
+			col-xs-12 justify">
+				<form action="/transcribe/tone/survey" method="post">{% csrf_token %}
+					<div class="form-group">
+						<label for="inputName">Name</label>
+						<input type="text" class="form-control" name="inputName" id="inputName" placeholder="Name">
+					</div>
+					<div class="form-group">
+						<label for="inputEmail">Email address</label>
+						<input type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Email">
+					</div>
+					<div class="form-group">
+						<label for="nativeLanguages">What language(s) are you a native speaker of?</label>
+						<input type="text" class="form-control" name="nativeLanguages" id="nativeLanguages" placeholder="Native languages">
+					</div>
+					<div class="form-group">
+						<label for="otherLanguages">What other language(s) can you speak?</label>
+						<input type="text" class="form-control" name="otherLanguages" id="otherLanguages" placeholder="Other languages">
+					</div>
+					<div class="form-group">
+						<label for="otherLanguages">Do you speak the target language?</label>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="targetLanguage" id="targetLanguage"> I speak the target language (Cantonese)
+							</label>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>
+<script src="{% static "jquery/validate.js" %}" type="text/javascript"></script>
+<script src="{% static "js/survey.js" %}" type="text/javascript"></script>
+</html>

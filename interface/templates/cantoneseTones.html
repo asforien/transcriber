@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Transcriber Interface</title>
+	<title>Tone Transcription Experiment</title>
 	<link rel="stylesheet" href="{% static "css/index.css" %}">
 	<link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
 </head>
@@ -24,6 +24,7 @@
 				</button>
 				<form action="/transcribe/tone/{{ audio_file_name }}" method="post" class="form-inline pull-right">{% csrf_token %}
 					<input type="hidden" name="result" id="result">
+					<input type="hidden" name="subjectKey" id="subjectKey">
 					<button class="btn btn-primary pull-right">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Submit
 					</button>

@@ -7,9 +7,9 @@ $(function () {
 	var regionColor2 = "rgba(68, 153, 204, 0.4)";
 
 	wavesurfer.init({
-	    container: document.querySelector('#wave'),
-	    waveColor: '#888',
-	    progressColor: '#437',
+		container: document.querySelector('#wave'),
+		waveColor: '#888',
+		progressColor: '#437',
 	});
 
 	wavesurfer.on('ready', function () {
@@ -25,9 +25,9 @@ $(function () {
 		})
 
 		$("region").each(function() {
-        	$(".transcription").eq(0).clone()
-        	.css('left', $(this).position().left + $(this).width() / 2 - 10)
-        	.appendTo("#transcriptions");
+			$(".transcription").eq(0).clone()
+			.css('left', $(this).position().left + $(this).width() / 2 - 10)
+			.appendTo("#transcriptions");
 		});
 		$(".transcription").eq(0).remove();
 
@@ -85,4 +85,17 @@ $(function () {
 		var result = $(this).html()
 		$(this).closest(".transcription").find(".transcription-value").html(result).removeClass("incomplete");
 	});
+
+	$("#subjectKey").val(getCookie("subjectKey"));
 });
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+}

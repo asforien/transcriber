@@ -1,8 +1,19 @@
 from django.db import models
 
+class Subject(models.Model):
+	name = models.CharField(max_length=255)
+	email = models.CharField(max_length=255, primary_key=True)
+	nativeLanguages = models.CharField(max_length=255)
+	otherLanguages = models.CharField(max_length=255)
+	targetLanguage = models.BooleanField()
+
+	def __str__(self):
+		return self.name + ":" + self.email
+
 class Transcription(models.Model):
+	subject = models.ForeignKey('Subject')
 	audio = models.IntegerField()
 	result = models.CharField(max_length=30)
 
 	def __str__(self):
-		return str(self.audio) + ", " + self.result
+		return self.subject.email + ":" + str(self.audio)
