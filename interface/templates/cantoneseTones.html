@@ -19,8 +19,9 @@
 				<button class="btn btn-default" id="btn-pause-resume">
 					<span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause/Resume
 				</button>
-				<button class="btn btn-default" id="btn-play-region">
-					<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Play Region
+
+				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#helpModal">
+					  Help
 				</button>
 				<form action="/transcribe/tone/{{ audio_file_name }}" method="post" class="form-inline pull-right">{% csrf_token %}
 					<input type="hidden" name="result" id="result">
@@ -104,9 +105,35 @@
 
 		<div class="row">
 			<div class="col-xs-12
-						col-md-6 col-md-offset-3
-						col-lg-4 col-lg-offset-4 text-center">
+			col-md-6 col-md-offset-3
+			col-lg-4 col-lg-offset-4 text-center">
 				<span>Click on each box to hear a sample. Note that the tone samples are produced by a different speaker from that of the audio to be transcribed. Two words with the same tone produced by different speakers may differ in absolute pitch. Tone should be transcribed relative to the average pitch of the speaker.</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="helpModalLabel">Help</h4>
+				</div>
+				<div class="modal-body">
+					<h5><b>Mouse Controls</b></h5>
+					Click on each highlighted region to play it<br/>
+					Hover over each of the circles to open a drop-down menu<br/>
+					Select the appropriate tone number from each menu<br/>
+
+					<h5><b>Keyboard Controls</b></h5>
+					Left and right arrow keys: move the red highlight region cursor<br/>
+					1-6: mark the highlighted region as having that tone<br/>
+					Space: play the highlighted region<br/>
+					Shift + 1-6: Play the tone samples
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
 		</div>
 	</div>
