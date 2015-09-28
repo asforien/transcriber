@@ -16,6 +16,7 @@ class Transcription(models.Model):
 	subject = models.ForeignKey('Subject')
 	audio = models.IntegerField()
 	result = models.CharField(max_length=30)
+	timeTaken = models.IntegerField()
 
 	def __str__(self):
 		return self.subject.email + ":" + str(self.audio)

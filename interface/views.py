@@ -12,9 +12,10 @@ def toneFeature(request, audio_file):
 	if request.method == 'POST':
 		result = request.POST.get('result', '')
 		email = request.POST.get('subjectKey', '')
+		timeTaken = request.POST.get('timeTaken', '')
 		subject = Subject.objects.get(pk=email)
 
-		Transcription.objects.create(subject=subject, audio=audio_file, result=result)
+		Transcription.objects.create(subject=subject, audio=audio_file, result=result, timeTaken=timeTaken)
 
 		if int(audio_file) < 30:
 			return HttpResponseRedirect('/transcribe/tone/'  + str(int(audio_file) + 1))

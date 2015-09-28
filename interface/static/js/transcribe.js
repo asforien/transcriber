@@ -2,7 +2,11 @@ var wavesurfer = Object.create(WaveSurfer);
 var regions = [];
 var selectedRegion = -1;
 
+var startTime = 0;
+
 $(function () {
+	startTime = new Date().getTime();
+
 	wavesurfer.init({
 		container: document.querySelector('#wave'),
 		waveColor: '#888',
@@ -53,6 +57,10 @@ $(function () {
 	});
 
 	$("form").submit(function(event) {
+		var timeTaken = (new Date().getTime() - startTime);
+		console.log("Time taken: " + timeTaken + " milliseconds");
+		$("#timeTaken").val(Math.floor(timeTaken/1000));
+
 		var results = [];
 		var complete = true;
 
