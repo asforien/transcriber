@@ -43,11 +43,14 @@ def survey(request):
 		nativeLanguages = request.POST.get('nativeLanguages', '')
 		otherLanguages = request.POST.get('otherLanguages', '')
 		targetLanguage = request.POST.get('targetLanguage', '') == 'on'
+		gender = request.POST.get('gender', '')
+		age = request.POST.get('age', '')
 
 		Subject.objects.create(name=name, email=email,
 			nativeLanguages=nativeLanguages,
 			otherLanguages=otherLanguages,
-			targetLanguage=targetLanguage)
+			targetLanguage=targetLanguage,
+			gender=gender, age=age)
 
 		return HttpResponseRedirect('/transcribe/tone/1')
 

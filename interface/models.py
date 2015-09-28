@@ -6,6 +6,8 @@ class Subject(models.Model):
 	nativeLanguages = models.CharField(max_length=255)
 	otherLanguages = models.CharField(max_length=255)
 	targetLanguage = models.BooleanField()
+	gender = models.CharField(max_length=10)
+	age = models.IntegerField()
 
 	def __str__(self):
 		return self.name + ":" + self.email
