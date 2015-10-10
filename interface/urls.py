@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^tone/(.+)$', views.toneFeature, name='toneFeature'),
     #url(r'^(.+)/(.+)$', views.binaryFeature, name='binaryFeature'),
     url(r'^end', views.end, name='end'),
+    url(r'^summary', views.summary, name='summary'),
     url(r'^results/$', views.results, name='results'),
 ]

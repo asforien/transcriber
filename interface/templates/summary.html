@@ -1,0 +1,50 @@
+{% load staticfiles %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tone Transcription Experiment</title>
+	<link rel="stylesheet" href="{% static "css/index.css" %}">
+	<link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row row-margin text-center">
+			<div class="col-xs-12">
+			<h1>Result Summary</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1
+						col-xs-12">
+				<table class="table">
+					<thead>
+						<tr>
+						<td>Native Languages</td>
+						<td>Other Languages</td>
+						<td>Target Language</td>
+						<td>Age</td>
+						<td>Gender</td>
+						<td>Score</td>
+						<td>Time</td>
+						</tr>
+					</thead>
+				{% for o in entries %}
+					<tr>
+						<td>{{ o.subject.nativeLanguages }}</td>
+						<td>{{ o.subject.otherLanguages }}</td>
+						<td>{{ o.subject.targetLanguage }}</td>
+						<td>{{ o.subject.age }}</td>
+						<td>{{ o.subject.gender }}</td>
+						<td>{{ o.score }}</td>
+						<td>{{ o.time }}</td>					
+					</tr>
+				{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

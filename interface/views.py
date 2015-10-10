@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Transcription, Subject
+from .models import Transcription, Subject, Audio
 
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.template import RequestContext, loader
@@ -61,6 +61,33 @@ def survey(request):
 def end(request):
 
 	return render(request, 'end.html')
+
+def summary(request):
+	entries = []
+	for sub in Subject.objects.all():
+		score = 0
+		total = 0
+		time = 0
+		for t in Transcription.objects.filter(subject=sub):
+			score += t.score
+			total += t.audio.numSegments
+			time += t.timeTaken
+
+		if total == 0:
+			continue
+
+		entries.append({
+			'subject': sub,
+			'score': score / float(total),
+			'time': time,
+		})
+	entries = sorted(entries, key=lambda k: k['score'], reverse=True) 
+
+	context = {
+		'entries': entries
+	}
+
+	return render(request, 'summary.html', context)
 
 def results(request):
     response = HttpResponse(content_type='text/csv')

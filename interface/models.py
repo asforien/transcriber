@@ -14,9 +14,19 @@ class Subject(models.Model):
 
 class Transcription(models.Model):
 	subject = models.ForeignKey('Subject')
-	audio = models.IntegerField()
+	audio = models.ForeignKey('Audio')
+	choiceType = models.IntegerField()
 	result = models.CharField(max_length=30)
 	timeTaken = models.IntegerField()
+	score = models.IntegerField()
 
 	def __str__(self):
-		return self.subject.email + ":" + str(self.audio)
+		return self.subject.email + ":" + str(self.audio.id)
+
+class Audio(models.Model):
+	id = models.IntegerField(primary_key=True)
+	numSegments = models.IntegerField()
+	answer = models.CharField(max_length=255)
+
+	def __str__(self):
+		return str(self.id)
