@@ -25,7 +25,7 @@
 				</button>
 				<form action="/transcribe/tone/{{ audio_file_name }}" method="post" class="form-inline pull-right">{% csrf_token %}
 					<input type="hidden" name="result" id="result">
-					<input type="hidden" name="subjectKey" id="subjectKey">
+					<input type="hidden" name="subId" id="subId">
 					<input type="hidden" name="timeTaken" id="timeTaken">
 					<button class="btn btn-primary pull-right">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Submit

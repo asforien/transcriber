@@ -87,7 +87,7 @@ $(function () {
 		$(this).closest(".transcription").find(".transcription-value").html(result).removeClass("incomplete");
 	});
 
-	$("#subjectKey").val(getCookie("subjectKey"));
+	$("#subId").val(getCookie("subId"));
 
 	// Keyboard controls
 

@@ -1,12 +1,12 @@
 from django.db import models
 
 class Subject(models.Model):
-	name = models.CharField(max_length=255)
-	email = models.CharField(max_length=255, primary_key=True)
-	nativeLanguages = models.CharField(max_length=255)
+	name = models.CharField(max_length=255, blank=False)
+	email = models.CharField(max_length=255, blank=False)
+	nativeLanguages = models.CharField(max_length=255, blank=False)
 	otherLanguages = models.CharField(max_length=255)
 	targetLanguage = models.BooleanField()
-	gender = models.CharField(max_length=10)
+	gender = models.CharField(max_length=10, blank=False)
 	age = models.IntegerField()
 
 	def __str__(self):
@@ -21,7 +21,7 @@ class Transcription(models.Model):
 	score = models.IntegerField()
 
 	def __str__(self):
-		return self.subject.email + ":" + str(self.audio.id)
+		return self.subject.name + ":" + str(self.audio.id) + ":" + str(self.choiceType)
 
 class Audio(models.Model):
 	id = models.IntegerField(primary_key=True)

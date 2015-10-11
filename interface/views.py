@@ -6,28 +6,40 @@ from django.template import RequestContext, loader
 from django.conf import settings
 
 import csv
+import re
 
-def toneFeature(request, audio_file):
+from Crypto.PublicKey import RSA
+from base64 import b64decode
+
+def toneFeature(request, audioId):
 
 	if request.method == 'POST':
 		result = request.POST.get('result', '')
-		email = request.POST.get('subjectKey', '')
+		subId = request.POST.get('subId', '')
 		timeTaken = request.POST.get('timeTaken', '')
-		subject = Subject.objects.get(pk=email)
+		subject = Subject.objects.get(pk=subId)
+		audio = Audio.objects.get(pk=audioId)
 
-		Transcription.objects.create(subject=subject, audio=audio_file, result=result, timeTaken=timeTaken)
+		score = 0
+		for c, a in zip(result, audio.answer):
+			if c == a:
+				score += 1
 
-		if int(audio_file) < 30:
-			return HttpResponseRedirect('/transcribe/tone/'  + str(int(audio_file) + 1))
+		Transcription.objects.create(subject=subject, audio=audio,
+			result=result, timeTaken=timeTaken, score=score, choiceType=0)
+
+		if int(audioId) < 30:
+			return HttpResponseRedirect('/transcribe/tone/'  + str(int(audioId) + 1))
 		else:
 			return HttpResponseRedirect('/transcribe/end')
 
 	else:
-		alignments_file_path = settings.STATIC_ROOT + '/data/alignments/' + audio_file + '.json'
+		Transcription.objects.filter(pk=1).delete()
+		alignments_file_path = settings.STATIC_ROOT + '/data/alignments/' + audioId + '.json'
 		alignments = open(alignments_file_path, 'r').read()
 		context = {
-			'audio_file_path': 'data/audio/' + audio_file + '.wav',
-			'audio_file_name': audio_file,
+			'audio_file_path': 'data/audio/' + audioId + '.wav',
+			'audio_file_name': audioId,
 			'alignments': alignments,
 		}
 		return render(request, 'cantoneseTones.html', context)
@@ -39,21 +51,32 @@ def start(request):
 def survey(request):
 
 	if request.method == 'POST':
-		name = request.POST.get('inputName', '')
-		email = request.POST.get('inputEmail', '')
+		cipherName = request.POST.get('encryptedName', '')
+		cipherEmail = request.POST.get('encryptedEmail', '')
 		nativeLanguages = request.POST.get('nativeLanguages', '')
 		otherLanguages = request.POST.get('otherLanguages', '')
 		targetLanguage = request.POST.get('targetLanguage', '') == 'on'
 		gender = request.POST.get('gender', '')
 		age = request.POST.get('age', '')
 
-		Subject.objects.create(name=name, email=email,
+		f = open(settings.STATIC_ROOT + '/rsa/private_key.pem', 'r')
+		key = RSA.importKey(f.read())
+		print(key)
+		name = key.decrypt(b64decode(cipherName))
+		email = key.decrypt(b64decode(cipherEmail))
+		name = name.decode('utf-8').replace('\0', '').encode('utf-8')
+		email = email.decode('utf-8').replace('\0', '').encode('utf-8')
+
+		subject = Subject.objects.create(name=name, email=email,
 			nativeLanguages=nativeLanguages,
 			otherLanguages=otherLanguages,
 			targetLanguage=targetLanguage,
 			gender=gender, age=age)
 
-		return HttpResponseRedirect('/transcribe/tone/1')
+		context = {
+			'subId': subject.pk,
+		}
+		return render(request, 'saveCookie.html', context)
 
 	else:
 		return render(request, 'survey.html')
@@ -97,7 +120,7 @@ def results(request):
     writer.writerow(['Subject', 'Audio', 'Transcription'])
 
     for o in Transcription.objects.all():
-        writer.writerow([o.subject.email, o.audio, o.result])
+        writer.writerow([o.subject.pk, o.audio, o.result])
 
     return response
 
