@@ -13,17 +13,34 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Audio',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
-                ('file_path', models.CharField(max_length=200)),
+                ('id', models.IntegerField(primary_key=True, serialize=False)),
+                ('numSegments', models.IntegerField()),
+                ('answer', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Subject',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('name', models.CharField(max_length=255)),
+                ('email', models.CharField(max_length=255)),
+                ('nativeLanguages', models.CharField(max_length=255)),
+                ('otherLanguages', models.CharField(max_length=255)),
+                ('targetLanguage', models.BooleanField()),
+                ('gender', models.CharField(max_length=10)),
+                ('age', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
             name='Transcription',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
-                ('distinctive_feature', models.CharField(max_length=30)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('choiceType', models.IntegerField()),
                 ('result', models.CharField(max_length=30)),
+                ('timeTaken', models.IntegerField()),
+                ('score', models.IntegerField()),
                 ('audio', models.ForeignKey(to='interface.Audio')),
+                ('subject', models.ForeignKey(to='interface.Subject')),
             ],
         ),
     ]
