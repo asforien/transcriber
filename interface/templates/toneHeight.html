@@ -45,12 +45,9 @@
 						<div class="transcription-value">?</div>
 						<div class="transcription-menu btn-group-vertical">
 							<div class="transcription-menu-triangle"></div>
-							<button type="button" class="btn btn-default"> 1 </button>
-							<button type="button" class="btn btn-default"> 2 </button>
-							<button type="button" class="btn btn-default"> 3 </button>
-							<button type="button" class="btn btn-default"> 4 </button>
-							<button type="button" class="btn btn-default"> 5 </button>
-							<button type="button" class="btn btn-default"> 6 </button>
+							<button type="button" class="btn btn-default"> H </button>
+							<button type="button" class="btn btn-default"> M </button>
+							<button type="button" class="btn btn-default"> L </button>
 						</div>
 					</div>
 				</div>
@@ -58,48 +55,49 @@
 		</div>
 		<div class="row row-margin">
 			<div class="col-xs-12 text-center">
-				<h3>Tone</h3>
-				<span>Select the tone number whose diagram matches most closely with the pitch of the sound over time</span>
+				<h3>Tone Height</h3>
+				<span>Select for each syllable the height of the tone<br/>
+				(H - High, M - Mid, L - Low)</span>
 			</div>
 		</div>
 
 		<div class="row row-margin text-center">
 			<div class="col-xs-12 flex-container">
 				<div class="tone-container flex-item">
-					<div class="tone-number">1</div>
+					<div class="tone-number">H</div>
 					<div class="tone-word">诗</div>
 					<div class="tone tone-1"></div>
-					<audio src="{% static "training/tone1.mp3" %}">
+					<audio src="{% static "training/tone1.mp3" %}"></audio>
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">2</div>
+					<div class="tone-number">H</div>
 					<div class="tone-word">史</div>
 					<div class="tone tone-2"></div>
-					<audio src="{% static "training/tone2.mp3" %}">
+					<audio src="{% static "training/tone2.mp3" %}"></audio>
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">3</div>
+					<div class="tone-number">M</div>
 					<div class="tone-word">试</div>
 					<div class="tone tone-3"></div>
-					<audio src="{% static "training/tone3.mp3" %}">
+					<audio src="{% static "training/tone3.mp3" %}"></audio>
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">4</div>
+					<div class="tone-number">L</div>
 					<div class="tone-word">时</div>
 					<div class="tone tone-4"></div>
-					<audio src="{% static "training/tone4.mp3" %}">
+					<audio src="{% static "training/tone4.mp3" %}"></audio>
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">5</div>
+					<div class="tone-number">L</div>
 					<div class="tone-word">市</div>
 					<div class="tone tone-5"></div>
-					<audio src="{% static "training/tone5.mp3" %}">
+					<audio src="{% static "training/tone5.mp3" %}"></audio>
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">6</div>
+					<div class="tone-number">L</div>
 					<div class="tone-word">事</div>
 					<div class="tone tone-6"></div>
-					<audio src="{% static "training/tone6.mp3" %}">
+					<audio src="{% static "training/tone6.mp3" %}"></audio>
 				</div>
 			</div>
 		</div>
@@ -128,7 +126,7 @@
 
 					<h5><b>Keyboard Controls</b></h5>
 					Left and right arrow keys: move the red highlight region cursor<br/>
-					1-6: mark the highlighted region as having that tone<br/>
+					1-3: mark the highlighted region as having a particular tone height<br/>
 					Space: play the highlighted region<br/>
 					Shift + 1-6: Play the tone samples
 				</div>
@@ -143,6 +141,7 @@
 <script>
 	var audio_file_path = "{% static audio_file_path %}";
 	var alignments = {{ alignments|safe }};
+	var choices = ['H', 'M', 'L'];
 </script>
 
 <script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>

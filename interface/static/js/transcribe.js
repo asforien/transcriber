@@ -116,7 +116,10 @@ $(function () {
 
 			case 49: case 50: case 51: case 52: case 53: case 54: // 1-6
 				if (!isShiftDown) {
-					$(".transcription-value.selected").html(event.which - 48);
+					var choiceNum = event.which - 49;
+					if (choiceNum < choices.length) {
+						$(".transcription-value.selected").html(choices[choiceNum]);
+					}
 				} else {
 					$("audio").get(event.which - 49).play();
 				}

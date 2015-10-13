@@ -1,0 +1,154 @@
+{% load staticfiles %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tone Transcription Experiment</title>
+	<link rel="stylesheet" href="{% static "css/index.css" %}">
+	<link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row row-margin">
+			<div class="col-xs-12">
+				<button class="btn btn-default" id="btn-play">
+					<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Play
+				</button>
+				<button class="btn btn-default" id="btn-pause-resume">
+					<span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause/Resume
+				</button>
+
+				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#helpModal">
+					  Help
+				</button>
+				<form action="/transcribe/tone/{{ audio_file_name }}" method="post" class="form-inline pull-right">{% csrf_token %}
+					<input type="hidden" name="result" id="result">
+					<input type="hidden" name="subId" id="subId">
+					<input type="hidden" name="timeTaken" id="timeTaken">
+					<button class="btn btn-primary pull-right">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Submit
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="row row-margin">
+			<div class="col-xs-12">
+				<div id="wave"></div>
+			</div>
+		</div>
+		<div class="row row-margin">
+			<div class="col-xs-12">
+				<div id="transcriptions">
+					<div class="transcription">
+						<div class="transcription-value">?</div>
+						<div class="transcription-menu btn-group-vertical">
+							<div class="transcription-menu-triangle"></div>
+							<button type="button" class="btn btn-default"> R </button>
+							<button type="button" class="btn btn-default"> L </button>
+							<button type="button" class="btn btn-default"> F </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row row-margin">
+			<div class="col-xs-12 text-center">
+				<h3>Tone Direction</h3>
+				<span>Select for each syllable how its pitch changes over time<br/>
+				(R - Rising, L - Level, F - Falling)</span>
+			</div>
+		</div>
+
+		<div class="row row-margin text-center">
+			<div class="col-xs-12 flex-container">
+				<div class="tone-container flex-item">
+					<div class="tone-number">R</div>
+					<div class="tone-word">史</div>
+					<div class="tone tone-2"></div>
+					<audio src="{% static "training/tone2.mp3" %}">
+				</div>
+				<div class="tone-container flex-item">
+					<div class="tone-number">R</div>
+					<div class="tone-word">市</div>
+					<div class="tone tone-5"></div>
+					<audio src="{% static "training/tone5.mp3" %}">
+				</div>
+				<div class="tone-container flex-item">
+					<div class="tone-number">L</div>
+					<div class="tone-word">诗</div>
+					<div class="tone tone-1"></div>
+					<audio src="{% static "training/tone1.mp3" %}">
+				</div>
+				<div class="tone-container flex-item">
+					<div class="tone-number">L</div>
+					<div class="tone-word">试</div>
+					<div class="tone tone-3"></div>
+					<audio src="{% static "training/tone3.mp3" %}">
+				</div>
+				<div class="tone-container flex-item">
+					<div class="tone-number">L</div>
+					<div class="tone-word">事</div>
+					<div class="tone tone-6"></div>
+					<audio src="{% static "training/tone6.mp3" %}">
+				</div>
+				<div class="tone-container flex-item">
+					<div class="tone-number">F</div>
+					<div class="tone-word">时</div>
+					<div class="tone tone-4"></div>
+					<audio src="{% static "training/tone4.mp3" %}">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12
+			col-md-6 col-md-offset-3
+			col-lg-4 col-lg-offset-4 text-center">
+				<span>Click on each box to hear a sample. Note that the tone samples are produced by a different speaker from that of the audio to be transcribed. Two words with the same tone produced by different speakers may differ in absolute pitch. Tone should be transcribed relative to the average pitch of the speaker.</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="helpModalLabel">Help</h4>
+				</div>
+				<div class="modal-body">
+					<h5><b>Mouse Controls</b></h5>
+					Click on each highlighted region to play it<br/>
+					Hover over each of the circles to open a drop-down menu<br/>
+					Select the appropriate tone number from each menu<br/>
+
+					<h5><b>Keyboard Controls</b></h5>
+					Left and right arrow keys: move the red highlight region cursor<br/>
+					1-3: mark the highlighted region as having a particular tone direction<br/>
+					Space: play the highlighted region<br/>
+					Shift + 1-6: Play the tone samples
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+	var audio_file_path = "{% static audio_file_path %}";
+	var alignments = {{ alignments|safe }};
+	var choices = ['R', 'L', 'F'];
+</script>
+
+<script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>
+<script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+<script src="{% static "wavesurfer/wavesurfer.min.js" %}" type="text/javascript"></script>
+<script src="{% static "wavesurfer/plugin/wavesurfer.regions.min.js" %}" type="text/javascript"></script>
+<script src="{% static "wavesurfer/plugin/wavesurfer.spectrogram.min.js" %}" type="text/javascript"></script>
+<script src="{% static "js/transcribe.js" %}" type="text/javascript"></script>
+<script src="{% static "js/tones.js" %}" type="text/javascript"></script>
+</html>

@@ -28,13 +28,15 @@ def toneFeature(request, audioId):
 		Transcription.objects.create(subject=subject, audio=audio,
 			result=result, timeTaken=timeTaken, score=score, choiceType=0)
 
-		if int(audioId) < 30:
-			return HttpResponseRedirect('/transcribe/tone/'  + str(int(audioId) + 1))
+		if int(audioId) == 1:
+			return HttpResponseRedirect('/transcribe/tone/2')
+		elif int(audioId) == 2:
+			nextAudio = Audio.objects.filter(transcription__audio=None)[0].id
+			return HttpResponseRedirect('/transcribe/tone/'  + str(nextAudio))
 		else:
 			return HttpResponseRedirect('/transcribe/end')
 
 	else:
-		Transcription.objects.filter(pk=1).delete()
 		alignments_file_path = settings.STATIC_ROOT + '/data/alignments/' + audioId + '.json'
 		alignments = open(alignments_file_path, 'r').read()
 		context = {
@@ -42,7 +44,7 @@ def toneFeature(request, audioId):
 			'audio_file_name': audioId,
 			'alignments': alignments,
 		}
-		return render(request, 'cantoneseTones.html', context)
+		return render(request, 'tone.html', context)
 
 def start(request):
 

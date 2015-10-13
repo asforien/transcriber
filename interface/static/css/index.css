@@ -138,9 +138,14 @@ li.negative:before {
 	z-index: 1;
 }
 
-.tone-word {
+.tone-word:nth-child(2) {
 	transform: translateX(50px);
 	-webkit-transform: translateX(50px);
+}
+
+.tone-word {
+	transform: translateX(25px);
+	-webkit-transform: translateX(25px);
 }
 
 .tone {

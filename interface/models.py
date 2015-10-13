@@ -25,6 +25,7 @@ class Transcription(models.Model):
 
 class Audio(models.Model):
 	id = models.IntegerField(primary_key=True)
+	fileName = models.CharField(max_length=255)
 	numSegments = models.IntegerField()
 	answer = models.CharField(max_length=255)
 
