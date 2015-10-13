@@ -23,7 +23,7 @@
 				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#helpModal">
 					  Help
 				</button>
-				<form action="/transcribe/tone/{{ audio_file_name }}" method="post" class="form-inline pull-right">{% csrf_token %}
+				<form action="/transcribe/tone/{{ audio_file_name }}/0" method="post" class="form-inline pull-right">{% csrf_token %}
 					<input type="hidden" name="result" id="result">
 					<input type="hidden" name="subId" id="subId">
 					<input type="hidden" name="timeTaken" id="timeTaken">

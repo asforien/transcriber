@@ -11,7 +11,7 @@ import re
 from Crypto.PublicKey import RSA
 from base64 import b64decode
 
-def toneFeature(request, audioId):
+def toneFeature(request, audioId, choiceType):
 
 	if request.method == 'POST':
 		result = request.POST.get('result', '')
@@ -20,22 +20,32 @@ def toneFeature(request, audioId):
 		subject = Subject.objects.get(pk=subId)
 		audio = Audio.objects.get(pk=audioId)
 
+		answer = audio.answer
+		if int(choiceType) == 1:
+			toneHeights = ['H', 'H', 'M', 'L', 'L', 'L']
+			answer = ''.join([toneHeights[int(x)-1] for x in answer])
+		elif int(choiceType) == 2:
+			toneDirections = ['L', 'R', 'L', 'F', 'R', 'L']
+			answer = ''.join([toneDirections[int(x)-1] for x in answer])
+
 		score = 0
-		for c, a in zip(result, audio.answer):
+		for c, a in zip(result, answer):
 			if c == a:
 				score += 1
 
 		Transcription.objects.create(subject=subject, audio=audio,
-			result=result, timeTaken=timeTaken, score=score, choiceType=0)
+			result=result, timeTaken=timeTaken, score=score, choiceType=choiceType)
 
-		if int(audioId) == 1:
-			return HttpResponseRedirect('/transcribe/tone/2')
-		elif int(audioId) == 2:
-			nextAudio = Audio.objects.filter(transcription__audio=None)[0].id
-			return HttpResponseRedirect('/transcribe/tone/'  + str(nextAudio))
+		if int(choiceType) == 2:
+			if int(audioId) == 1:
+				return HttpResponseRedirect('/transcribe/tone/2/0')
+			elif int(audioId) == 2:
+				nextAudio = Audio.objects.filter(transcription__audio=None)[0].id
+				return HttpResponseRedirect('/transcribe/tone/'  + str(nextAudio) + '/0')
+			else:
+				return HttpResponseRedirect('/transcribe/end')
 		else:
-			return HttpResponseRedirect('/transcribe/end')
-
+			return HttpResponseRedirect('/transcribe/tone/' + audioId + '/' + str(int(choiceType) + 1))
 	else:
 		alignments_file_path = settings.STATIC_ROOT + '/data/alignments/' + audioId + '.json'
 		alignments = open(alignments_file_path, 'r').read()
@@ -44,7 +54,12 @@ def toneFeature(request, audioId):
 			'audio_file_name': audioId,
 			'alignments': alignments,
 		}
-		return render(request, 'tone.html', context)
+		template = 'tone.html'
+		if int(choiceType) == 1:
+			template = 'toneHeight.html'
+		elif int(choiceType) == 2:
+			template = 'toneDirection.html'
+		return render(request, template, context)
 
 def start(request):
 
