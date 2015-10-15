@@ -35,6 +35,13 @@
 	position: absolute !important;
 }
 
+@media (max-width: 860px) {
+	.transcription:nth-child(even) {
+		transform: translateY(20px);
+		-webkit-transform: translateY(20px);
+	}
+}
+
 .transcription-value {
 	width: 20px;
 	text-align: center;
@@ -124,26 +131,29 @@ li.negative:before {
 
 /* Tone numbers and contours */
 
+.tone-container {
+	margin-top: 25px;
+}
+
 .tone-container:hover {
 	cursor: pointer;
 }
 
-.tone-word,
-.tone-number {
+.tone-number,
+.tone-desc {
+	position: absolute;
+	width: 100px;
+	transform: translateY(-25px);
+	-webkit-transform: translateY(-25px);
+}
+
+.tone-word {
 	height: 100px;
 	width: 50px;
 	line-height: 100px;
 	position: absolute;
 	font-size: 36px;
 	z-index: 1;
-}
-
-.tone-word:nth-child(2) {
-	transform: translateX(50px);
-	-webkit-transform: translateX(50px);
-}
-
-.tone-word {
 	transform: translateX(25px);
 	-webkit-transform: translateX(25px);
 }

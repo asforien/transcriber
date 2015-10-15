@@ -23,7 +23,7 @@
 				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#helpModal">
 					  Help
 				</button>
-				<form action="/transcribe/tone/{{ audio_file_name }}/2" method="post" class="form-inline pull-right">{% csrf_token %}
+				<form action="/tone/{{ subject_id }}/{{ question_id }}" method="post" class="form-inline pull-right">{% csrf_token %}
 					<input type="hidden" name="result" id="result">
 					<input type="hidden" name="subId" id="subId">
 					<input type="hidden" name="timeTaken" id="timeTaken">
@@ -55,46 +55,46 @@
 		</div>
 		<div class="row row-margin">
 			<div class="col-xs-12 text-center">
-				<h3>Tone Direction</h3>
-				<span>Select for each syllable how its pitch changes over time<br/>
-				(R - Rising, L - Level, F - Falling)</span>
+				<h3>Tone Descriptions</h3>
+				<span>First, decide if each tone is rising, level or falling.<br/>
+				Next, select the tone with the closest tone height. </span>
 			</div>
 		</div>
 
 		<div class="row row-margin text-center">
 			<div class="col-xs-12 flex-container">
 				<div class="tone-container flex-item">
-					<div class="tone-number">R</div>
+					<div class="tone-desc">High Rising</div>
 					<div class="tone-word">史</div>
 					<div class="tone tone-2"></div>
 					<audio src="{% static "training/tone2.mp3" %}">
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">R</div>
+					<div class="tone-desc">Low Rising</div>
 					<div class="tone-word">市</div>
 					<div class="tone tone-5"></div>
 					<audio src="{% static "training/tone5.mp3" %}">
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">L</div>
+					<div class="tone-desc">High Level</div>
 					<div class="tone-word">诗</div>
 					<div class="tone tone-1"></div>
 					<audio src="{% static "training/tone1.mp3" %}">
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">L</div>
+					<div class="tone-desc">Mid Level</div>
 					<div class="tone-word">试</div>
 					<div class="tone tone-3"></div>
 					<audio src="{% static "training/tone3.mp3" %}">
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">L</div>
+					<div class="tone-desc">Low Level</div>
 					<div class="tone-word">事</div>
 					<div class="tone tone-6"></div>
 					<audio src="{% static "training/tone6.mp3" %}">
 				</div>
 				<div class="tone-container flex-item">
-					<div class="tone-number">F</div>
+					<div class="tone-desc">Falling</div>
 					<div class="tone-word">时</div>
 					<div class="tone tone-4"></div>
 					<audio src="{% static "training/tone4.mp3" %}">

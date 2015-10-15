@@ -1,13 +1,14 @@
 from django.db import models
 
 class Subject(models.Model):
-	name = models.CharField(max_length=255, blank=False)
-	email = models.CharField(max_length=255, blank=False)
-	nativeLanguages = models.CharField(max_length=255, blank=False)
-	otherLanguages = models.CharField(max_length=255)
-	targetLanguage = models.BooleanField()
-	gender = models.CharField(max_length=10, blank=False)
-	age = models.IntegerField()
+	name = models.CharField(max_length=255)
+	email = models.CharField(max_length=255)
+	native_languages = models.CharField(max_length=255)
+	other_languages = models.CharField(max_length=255)
+	target_language = models.BooleanField(default=False)
+	gender = models.CharField(max_length=10)
+	age = models.IntegerField(default=0)
+	question_order = models.CharField(max_length=255)
 
 	def __str__(self):
 		return self.name + ":" + self.email
