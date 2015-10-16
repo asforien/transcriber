@@ -84,7 +84,8 @@ $(function () {
 
 	$("#transcriptions").on("click", ".transcription-menu button", function() {
 		var result = $(this).html()
-		$(this).closest(".transcription").find(".transcription-value").html(result).removeClass("incomplete");
+		var container = $(this).closest(".transcription").find(".transcription-value");
+		setTranscription(container, result);
 	});
 
 	$("#subId").val(getCookie("subId"));
@@ -118,7 +119,10 @@ $(function () {
 				if (!isShiftDown) {
 					var choiceNum = event.which - 49;
 					if (choiceNum < choices.length) {
-						$(".transcription-value.selected").html(choices[choiceNum]);
+						var result = choices[choiceNum];
+						var container = $(".transcription-value.selected")
+						setTranscription(container, result)
+						container.addClass("selected")
 					}
 				} else {
 					$("audio").get(event.which - 49).play();
@@ -154,6 +158,12 @@ function getRegionColor(index) {
 	var regionColor1 = "rgba(128, 128, 128, 0.4)";
 	var regionColor2 = "rgba(64, 64, 64, 0.4)";
 	return index % 2 == 0 ? regionColor1 : regionColor2;
+}
+
+function setTranscription($container, result) {
+	result = result + "";
+	$container.html(result).removeClass()
+	.addClass("transcription-value tone-bg-" + result.toLowerCase());
 }
 
 function setSelectedRegion(index) {

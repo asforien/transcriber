@@ -59,12 +59,8 @@
 	background-color: #969 !important;
 }
 
-.transcription:nth-child(odd) .transcription-value  {
+.transcription-value  {
 	background-color: #bbb;
-}
-
-.transcription:nth-child(even) .transcription-value  {
-	background-color: #999;
 }
 
 .transcription .transcription-value.incomplete {

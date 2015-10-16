@@ -24,6 +24,20 @@ def transcribe(request, subjectId, questionId):
 
 		audio = Audio.objects.get(pk=audioId)
 
+		print(choiceType)
+		if choiceType == '2':
+			toneMapping = {
+				'HL': '1',
+				'HR': '2',
+				'ML': '3',
+				'LF': '4',
+				'LR': '5',
+				'LL': '6'
+			}
+			result = [result[i:i+2] for i in range(0, len(result), 2)]
+			result = [toneMapping[i] for i in result]
+			result = ''.join(result)
+
 		score = 0
 		for c, a in zip(result, audio.answer):
 			if c == a:
@@ -47,9 +61,9 @@ def transcribe(request, subjectId, questionId):
 			'alignments': alignments,
 		}
 		if int(choiceType) == 1:
-			template = 'toneFeature.html'
-		else:
 			template = 'toneNumber.html'
+		else:
+			template = 'toneFeature.html'
 		return render(request, template, context)
 
 def start(request):
