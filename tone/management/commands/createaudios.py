@@ -24,9 +24,11 @@ class Command(BaseCommand):
 		for i in audioInfo:
 			Audio.objects.update_or_create(
 				id = i[0],
-				fileName = i[1],
-				numSegments = len(i[2]),
-				answer = i[2],
+					defaults={
+					'fileName' : i[1],
+					'numSegments' : len(i[2]),
+					'answer' : i[2],
+				}
 			)
 # 1
 # 2
