@@ -33,7 +33,7 @@
 				</form>
 			</div>
 		</div>
-		<div class="row row-margin">
+		<div class="row">
 			<div class="col-xs-12">
 				<div id="wave"></div>
 			</div>
@@ -45,68 +45,79 @@
 						<div class="transcription-value">?</div>
 						<div class="transcription-menu btn-group-vertical">
 							<div class="transcription-menu-triangle"></div>
-							<button type="button" class="btn btn-default"> R </button>
-							<button type="button" class="btn btn-default"> L </button>
-							<button type="button" class="btn btn-default"> F </button>
+							<button type="button" class="btn tone-bg-hr">HR</button>
+							<button type="button" class="btn tone-bg-lr">LR</button>
+							<button type="button" class="btn tone-bg-hl">HL</button>
+							<button type="button" class="btn tone-bg-ml">ML</button>
+							<button type="button" class="btn tone-bg-ll">LL</button>
+							<button type="button" class="btn tone-bg-lf">LF</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row row-margin">
+		<div class="row">
 			<div class="col-xs-12 text-center">
-				<h3>Tone Descriptions</h3>
+				<h4>Instructions</h4>
 				<span>First, decide if each tone is rising, level or falling.<br/>
-				Next, select the tone with the closest tone height. </span>
+				Next, select the tone with the closest tone height within that group. </span>
 			</div>
 		</div>
 
 		<div class="row row-margin text-center">
-			<div class="col-xs-12 flex-container">
-				<div class="tone-container flex-item">
+			<div class="col-xs-4"><h4>Rising Tones</h4></div>
+			<div class="col-xs-4"><h4>Level Tones</h4></div>
+			<div class="col-xs-4"><h4>Falling Tones</h4></div>
+		</div>
+
+		<div class="row text-center">
+			<div class="col-xs-4 flex-container">
+				<div class="tone-container flex-item tone-bg-hr">
 					<div class="tone-desc">High Rising</div>
 					<div class="tone-word">史</div>
 					<div class="tone tone-2"></div>
-					<audio src="{% static "training/tone2.mp3" %}">
+					<audio src="{% static "training/tone2.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
+				<div class="tone-container flex-item tone-bg-lr">
 					<div class="tone-desc">Low Rising</div>
 					<div class="tone-word">市</div>
 					<div class="tone tone-5"></div>
-					<audio src="{% static "training/tone5.mp3" %}">
+					<audio src="{% static "training/tone5.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
+			</div>
+			<div class="col-xs-4 flex-container">
+				<div class="tone-container flex-item tone-bg-hl">
 					<div class="tone-desc">High Level</div>
 					<div class="tone-word">诗</div>
 					<div class="tone tone-1"></div>
-					<audio src="{% static "training/tone1.mp3" %}">
+					<audio src="{% static "training/tone1.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
+				<div class="tone-container flex-item tone-bg-ml">
 					<div class="tone-desc">Mid Level</div>
 					<div class="tone-word">试</div>
 					<div class="tone tone-3"></div>
-					<audio src="{% static "training/tone3.mp3" %}">
+					<audio src="{% static "training/tone3.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
+				<div class="tone-container flex-item tone-bg-ll">
 					<div class="tone-desc">Low Level</div>
 					<div class="tone-word">事</div>
 					<div class="tone tone-6"></div>
-					<audio src="{% static "training/tone6.mp3" %}">
+					<audio src="{% static "training/tone6.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
-					<div class="tone-desc">Falling</div>
+			</div>
+			<div class="col-xs-4 flex-container">
+				<div class="tone-container flex-item tone-bg-lf">
+					<div class="tone-desc">Low Falling</div>
 					<div class="tone-word">时</div>
 					<div class="tone tone-4"></div>
-					<audio src="{% static "training/tone4.mp3" %}">
+					<audio src="{% static "training/tone4.mp3" %}"></audio>
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-xs-12
-			col-md-6 col-md-offset-3
-			col-lg-4 col-lg-offset-4 text-center">
-				<span>Click on each box to hear a sample. Note that the tone samples are produced by a different speaker from that of the audio to be transcribed. Two words with the same tone produced by different speakers may differ in absolute pitch. Tone should be transcribed relative to the average pitch of the speaker.</span>
+			<div class="col-xs-12 text-center">
+				<span>Click on each box to hear a sample. Note that the tone samples are produced by a different speaker from that of the audio to be transcribed, and may differ in pitch.</span>
 			</div>
 		</div>
 	</div>
@@ -120,15 +131,15 @@
 				</div>
 				<div class="modal-body">
 					<h5><b>Mouse Controls</b></h5>
-					Click on each highlighted region to play it<br/>
+					Click on each region to play it<br/>
 					Hover over each of the circles to open a drop-down menu<br/>
 					Select the appropriate tone number from each menu<br/>
 
-					<h5><b>Keyboard Controls</b></h5>
-					Left and right arrow keys: move the red highlight region cursor<br/>
-					1-3: mark the highlighted region as having a particular tone direction<br/>
+					<h5><b>Keyboard Shortcuts</b></h5>
+					Left and right arrow keys: move the region cursor<br/>
+					1-6: mark the highlighted region as having the corresponding tone, from left to right<br/>
 					Space: play the highlighted region<br/>
-					Shift + 1-6: Play the tone samples
+					Shift + 1-6: Play the tone samples, from left to right
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -141,7 +152,7 @@
 <script>
 	var audio_file_path = "{% static audio_file_path %}";
 	var alignments = {{ alignments|safe }};
-	var choices = ['R', 'L', 'F'];
+	var choices = ["HR", "LR", "HL", "ML", "LL", "LF"];
 </script>
 
 <script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>

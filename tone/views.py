@@ -47,7 +47,7 @@ def transcribe(request, subjectId, questionId):
 			'alignments': alignments,
 		}
 		if int(choiceType) == 1:
-			template = 'toneDesc.html'
+			template = 'toneFeature.html'
 		else:
 			template = 'toneNumber.html'
 		return render(request, template, context)
@@ -85,7 +85,7 @@ def survey(request):
 		s.age = age
 		s.save()
 
-		return HttpResponseRedirect('/tone/' + s.pk + '/1')
+		return HttpResponseRedirect('/tone/' + str(s.pk) + '/1')
 
 	else:
 		return render(request, 'survey.html')
@@ -110,7 +110,7 @@ def summary(request):
 
 		entries.append({
 			'subject': sub,
-			'score': score / float(total),
+			'score': str(int(score / float(total) * 100)) + '%',
 			'time': time,
 		})
 	entries = sorted(entries, key=lambda k: k['score'], reverse=True) 

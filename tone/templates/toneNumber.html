@@ -33,7 +33,7 @@
 				</form>
 			</div>
 		</div>
-		<div class="row row-margin">
+		<div class="row">
 			<div class="col-xs-12">
 				<div id="wave"></div>
 			</div>
@@ -45,57 +45,57 @@
 						<div class="transcription-value">?</div>
 						<div class="transcription-menu btn-group-vertical">
 							<div class="transcription-menu-triangle"></div>
-							<button type="button" class="btn btn-default"> 1 </button>
-							<button type="button" class="btn btn-default"> 2 </button>
-							<button type="button" class="btn btn-default"> 3 </button>
-							<button type="button" class="btn btn-default"> 4 </button>
-							<button type="button" class="btn btn-default"> 5 </button>
-							<button type="button" class="btn btn-default"> 6 </button>
+							<button type="button" class="btn tone-bg-1"> 1 </button>
+							<button type="button" class="btn tone-bg-2"> 2 </button>
+							<button type="button" class="btn tone-bg-3"> 3 </button>
+							<button type="button" class="btn tone-bg-4"> 4 </button>
+							<button type="button" class="btn tone-bg-5"> 5 </button>
+							<button type="button" class="btn tone-bg-6"> 6 </button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row row-margin">
+		<div class="row">
 			<div class="col-xs-12 text-center">
-				<h3>Tone Numbers</h3>
+				<h4>Instructions</h4>
 				<span>Select the tone number whose diagram matches most closely with the pitch of the sound over time</span>
 			</div>
 		</div>
 
 		<div class="row row-margin text-center">
 			<div class="col-xs-12 flex-container">
-				<div class="tone-container flex-item">
+				<div class="tone-container flex-item tone-bg-1">
 					<div class="tone-number">1</div>
 					<div class="tone-word">诗</div>
 					<div class="tone tone-1"></div>
 					<audio src="{% static "training/tone1.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
+				<div class="tone-container flex-item tone-bg-2">
 					<div class="tone-number">2</div>
 					<div class="tone-word">史</div>
 					<div class="tone tone-2"></div>
 					<audio src="{% static "training/tone2.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
+				<div class="tone-container flex-item tone-bg-3">
 					<div class="tone-number">3</div>
 					<div class="tone-word">试</div>
 					<div class="tone tone-3"></div>
 					<audio src="{% static "training/tone3.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
+				<div class="tone-container flex-item tone-bg-4">
 					<div class="tone-number">4</div>
 					<div class="tone-word">时</div>
 					<div class="tone tone-4"></div>
 					<audio src="{% static "training/tone4.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
+				<div class="tone-container flex-item tone-bg-5">
 					<div class="tone-number">5</div>
 					<div class="tone-word">市</div>
 					<div class="tone tone-5"></div>
 					<audio src="{% static "training/tone5.mp3" %}"></audio>
 				</div>
-				<div class="tone-container flex-item">
+				<div class="tone-container flex-item tone-bg-6">
 					<div class="tone-number">6</div>
 					<div class="tone-word">事</div>
 					<div class="tone tone-6"></div>
@@ -105,10 +105,8 @@
 		</div>
 
 		<div class="row">
-			<div class="col-xs-12
-			col-md-6 col-md-offset-3
-			col-lg-4 col-lg-offset-4 text-center">
-				<span>Click on each box to hear a sample. Note that the tone samples are produced by a different speaker from that of the audio to be transcribed. Two words with the same tone produced by different speakers may differ in absolute pitch. Tone should be transcribed relative to the average pitch of the speaker.</span>
+			<div class="col-xs-12 text-center">
+				<span>Click on each box to hear a sample. Note that the tone samples are produced by a different speaker from that of the audio to be transcribed, and may differ in pitch.</span>
 			</div>
 		</div>
 	</div>
@@ -122,12 +120,12 @@
 				</div>
 				<div class="modal-body">
 					<h5><b>Mouse Controls</b></h5>
-					Click on each highlighted region to play it<br/>
+					Click on each region to play it<br/>
 					Hover over each of the circles to open a drop-down menu<br/>
 					Select the appropriate tone number from each menu<br/>
 
-					<h5><b>Keyboard Controls</b></h5>
-					Left and right arrow keys: move the red highlight region cursor<br/>
+					<h5><b>Keyboard Shortcuts</b></h5>
+					Left and right arrow keys: move the region cursor<br/>
 					1-6: mark the highlighted region as having that tone<br/>
 					Space: play the highlighted region<br/>
 					Shift + 1-6: Play the tone samples

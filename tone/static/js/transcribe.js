@@ -28,7 +28,7 @@ $(function () {
 
 		$("region").each(function() {
 			$(".transcription").eq(0).clone()
-			.css('left', $(this).position().left + $(this).width() / 2 - 10)
+			.css('left', $(this).position().left + $(this).width() / 2)
 			.appendTo("#transcriptions");
 		});
 		$(".transcription").eq(0).remove();
@@ -151,8 +151,8 @@ function getCookie(cname) {
 }
 
 function getRegionColor(index) {
-	var regionColor1 = "rgba(51, 102, 102, 0.4)";
-	var regionColor2 = "rgba(68, 153, 204, 0.4)";
+	var regionColor1 = "rgba(128, 128, 128, 0.4)";
+	var regionColor2 = "rgba(64, 64, 64, 0.4)";
 	return index % 2 == 0 ? regionColor1 : regionColor2;
 }
 
