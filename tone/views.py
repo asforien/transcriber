@@ -24,7 +24,6 @@ def transcribe(request, subjectId, questionId):
 
 		audio = Audio.objects.get(pk=audioId)
 
-		print(choiceType)
 		if choiceType == '2':
 			toneMapping = {
 				'HL': '1',
@@ -46,7 +45,7 @@ def transcribe(request, subjectId, questionId):
 		Transcription.objects.create(subject=subject, audio=audio,
 			result=result, timeTaken=timeTaken, score=score, choiceType=choiceType)
 
-		if int(questionId) == 6:
+		if int(questionId) == 3:
 			return HttpResponseRedirect('/tone/end')
 		else:
 			return HttpResponseRedirect('/tone/' + subjectId + '/' + str(int(questionId) + 1))
