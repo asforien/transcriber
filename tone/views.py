@@ -87,7 +87,7 @@ def survey(request):
 		name = name.decode('utf-8').replace('\0', '').encode('utf-8')
 		email = email.decode('utf-8').replace('\0', '').encode('utf-8')
 
-		subs = Subject.objects.filter(name='')
+		subs = Subject.objects.filter(age=0)
 		s = subs[0]
 		s.name = name
 		s.email = email
