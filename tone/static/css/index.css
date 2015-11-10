@@ -1,7 +1,10 @@
 .consent-form {
-	max-height: 50vh;
 	overflow: auto;
 	border: 1px solid black;
+}
+
+.consent-form ol {
+	padding-left: 20px;
 }
 
 .justify {
