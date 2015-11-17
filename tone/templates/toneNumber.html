@@ -23,12 +23,19 @@
 				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#helpModal">
 					  Help
 				</button>
+
 				<form action="/tone/{{ subject_id }}/{{ question_id }}" method="post" class="form-inline pull-right">{% csrf_token %}
+					<span class="">Question {{question_id}} of 3&nbsp;&nbsp;</span>
 					<input type="hidden" name="result" id="result">
 					<input type="hidden" name="subId" id="subId">
 					<input type="hidden" name="timeTaken" id="timeTaken">
-					<button class="btn btn-success pull-right">
-						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Next
+					<button class="btn btn-success">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						{% if question_id == "3" %}
+						Finish
+						{% else %}
+						Next
+						{% endif %}
 					</button>
 				</form>
 			</div>

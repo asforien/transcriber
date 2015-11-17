@@ -16,7 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from django.conf.urls import patterns
+from django.views.generic import TemplateView
+
 urlpatterns = [
     url(r'^tone/', include('tone.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
+
+urlpatterns += patterns('', (r'^$', TemplateView.as_view(template_name="index.html")))

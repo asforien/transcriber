@@ -14,9 +14,7 @@ from base64 import b64decode
 def transcribe(request, subjectId, questionId):
 
 	subject = Subject.objects.get(pk=subjectId)
-	qInfo = subject.question_order.split(',')[int(questionId) - 1]
-	audioId = qInfo.split('.')[0]
-	choiceType = qInfo.split('.')[1]
+	audioId = subject.question_order.split(',')[int(questionId) - 1]
 
 	if request.method == 'POST':
 		result = request.POST.get('result', '')
@@ -24,26 +22,13 @@ def transcribe(request, subjectId, questionId):
 
 		audio = Audio.objects.get(pk=audioId)
 
-		if choiceType == '2':
-			toneMapping = {
-				'HL': '1',
-				'HR': '2',
-				'ML': '3',
-				'LF': '4',
-				'LR': '5',
-				'LL': '6'
-			}
-			result = [result[i:i+2] for i in range(0, len(result), 2)]
-			result = [toneMapping[i] for i in result]
-			result = ''.join(result)
-
 		score = 0
 		for c, a in zip(result, audio.answer):
 			if c == a:
 				score += 1
 
 		Transcription.objects.create(subject=subject, audio=audio,
-			result=result, timeTaken=timeTaken, score=score, choiceType=choiceType)
+			result=result, timeTaken=timeTaken, score=score)
 
 		if int(questionId) == 3:
 			return HttpResponseRedirect('/tone/end')
@@ -59,11 +44,7 @@ def transcribe(request, subjectId, questionId):
 			'question_id': questionId,
 			'alignments': alignments,
 		}
-		if int(choiceType) == 1:
-			template = 'toneNumber.html'
-		else:
-			template = 'toneFeature.html'
-		return render(request, template, context)
+		return render(request, 'toneNumber.html', context)
 
 def start(request):
 
@@ -74,7 +55,7 @@ def survey(request):
 	if request.method == 'POST':
 		cipherName = request.POST.get('encryptedName', '')
 		cipherEmail = request.POST.get('encryptedEmail', '')
-		nativeLanguages = request.POST.get('nativeLanguages', '')
+		dominantLanguage = request.POST.get('dominantLanguage', '')
 		otherLanguages = request.POST.get('otherLanguages', '')
 		targetLanguage = request.POST.get('targetLanguage', '') == 'on'
 		gender = request.POST.get('gender', '')
@@ -87,21 +68,31 @@ def survey(request):
 		name = name.decode('utf-8').replace('\0', '').encode('utf-8')
 		email = email.decode('utf-8').replace('\0', '').encode('utf-8')
 
-		subs = Subject.objects.filter(age=0)
-		s = subs[0]
-		s.name = name
-		s.email = email
-		s.native_languages = nativeLanguages
-		s.other_languages = otherLanguages
-		s.target_language = targetLanguage
-		s.gender = gender
-		s.age = age
-		s.save()
+		sub = Subject.objects.create(name=name, email=email, dominant_language=dominantLanguage,
+			other_languages=otherLanguages, target_language=targetLanguage, gender=gender, age=age)
 
-		return HttpResponseRedirect('/tone/' + str(s.pk) + '/1')
+		# Generate questions for subject
+
+		q3 = 2 + Subject.objects.filter(dominant_language=dominantLanguage).count()
+
+		if sub.pk % 2 == 0:
+			questionOrder = "1,2," + str(q3)
+		else:
+			questionOrder = "2,1," + str(q3)
+
+		sub.question_order = questionOrder
+		sub.save();
+
+		return HttpResponseRedirect('/tone/' + str(sub.pk) + '/1')
 
 	else:
-		return render(request, 'survey.html')
+		defaultLanguages = ['English', 'Mandarin']
+		languages = Subject.objects.values_list('dominant_language', flat=True).distinct()
+		languages = list(set(defaultLanguages) | set(languages))
+		context = {
+			'DLs': languages
+		}
+		return render(request, 'survey.html', context)
 
 def end(request):
 

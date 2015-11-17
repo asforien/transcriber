@@ -13,15 +13,10 @@
 	<div class="container-fluid">
 		<div class="row row-margin text-center">
 			<div class="col-xs-12">
-				<h1>Tone Transcription Experiment</h1>
+				<h3>Tone Transcription Experiment - Demographic Survey</h3>
 			</div>
 		</div>
-		<div class="row text-center">
-			<div class="col-xs-12">
-				<h3>Demographic Survey</h3>
-			</div>
-		</div>
-		<div class="row">
+		<div class="row row-margin">
 			<div class="col-lg-4 col-lg-offset-4
 			col-md-6 col-md-offset-3
 			col-sm-8 col-sm-offset-2
@@ -49,8 +44,13 @@
 						<input type="text" class="form-control" name="age" id="age" placeholder="Age">
 					</div>
 					<div class="form-group">
-						<label for="nativeLanguages">What language(s) are you a native speaker of?</label>
-						<input type="text" class="form-control" name="nativeLanguages" id="nativeLanguages" placeholder="Native languages">
+						<label for="dominantLanguage">What is your dominant language?</label><br/>
+						Your dominant language is the language you are most fluent in. This is the language that you usually think in; that you speak to yourself in your head with. If you think you have more than one dominant language, you may indicate the others with remarks under "Other Languages".
+						{% for DL in DLs %}
+	  						<div class="radio"><label><input type="radio" name="dominantLanguage" value="{{DL}}">{{DL}}</div></label>
+	  					{% endfor %}
+	  						<div class="radio"><label><input type="radio" name="dominantLanguage" id="otherDLRadio" value="Other">Other, please specify:</div></label>
+	  						<input type="text" class="form-control" id="otherDL" placeholder="Enter your language here if it is not in the above list"> 
 					</div>
 					<div class="form-group">
 						<label for="otherLanguages">What other language(s) can you speak?</label>

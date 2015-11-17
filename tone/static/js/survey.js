@@ -3,10 +3,13 @@ $("form").submit(function(event) {
 		RSAAPP.NoPadding, RSAAPP.RawEncoding
 	);
 	$("#encryptedName").val(window.btoa(cipherName));
+
 	var cipherEmail = encryptedString(key, $("#inputEmail").val(),
 		RSAAPP.NoPadding, RSAAPP.RawEncoding
 	);
 	$("#encryptedEmail").val(window.btoa(cipherEmail));
+
+	$("#otherDLRadio").attr("value", $("#otherDL").val());
 });
 
 $.validator.setDefaults({
@@ -30,11 +33,9 @@ $.validator.setDefaults({
 $("form").validate({
 	rules: {
 		inputName: {
-			required: true,
 			maxlength: 255
 		},
 		inputEmail: {
-			required: true,
 			maxlength: 255,
 			email: true
 		},
