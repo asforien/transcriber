@@ -44,25 +44,29 @@
 						<input type="text" class="form-control" name="age" id="age" placeholder="Age">
 					</div>
 					<div class="form-group">
-						<label for="dominantLanguage">What is your dominant language?</label><br/>
-						Your dominant language is the language you are most fluent in. This is the language that you usually think in; that you speak to yourself in your head with. If you think you have more than one dominant language, you may indicate the others with remarks under "Other Languages".
-						{% for DL in DLs %}
-	  						<div class="radio"><label><input type="radio" name="dominantLanguage" value="{{DL}}">{{DL}}</div></label>
-	  					{% endfor %}
-	  						<div class="radio"><label><input type="radio" name="dominantLanguage" id="otherDLRadio" value="Other">Other, please specify:</div></label>
-	  						<input type="text" class="form-control" id="otherDL" placeholder="Enter your language here if it is not in the above list"> 
+						<label for="dominantLanguage">What is your dominant language?</label>
+
+						<div class="radio-container">
+							{% for DL in DLs %}
+		  					<div class="radio"><label class="radio"><input type="radio" name="dominantLanguage" value="{{DL}}">{{DL}}</label></div>
+		  					{% endfor %}
+		  					<div class="radio"><label class="radio"><input type="radio" name="dominantLanguage" id="otherDLRadio" value="Other">Other, please specify:</label></div>
+	  					</div>
+					</div>
+					<div class="form-group">
+	  					<input type="text" class="form-control" id="otherDL" name="otherDL" placeholder="Enter your language here if it is not in the above list"> 
+					</div>
+					<div class="form-group">
+						<label for="otherLanguages">Do you speak Cantonese?</label>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="targetLanguage" id="targetLanguage"> Yes, I speak Cantonese
+							</label>
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="otherLanguages">What other language(s) can you speak?</label>
 						<input type="text" class="form-control" name="otherLanguages" id="otherLanguages" placeholder="Other languages (Optional)">
-					</div>
-					<div class="form-group">
-						<label for="otherLanguages">Do you speak the target language?</label>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="targetLanguage" id="targetLanguage"> I speak the target language (Cantonese)
-							</label>
-						</div>
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>

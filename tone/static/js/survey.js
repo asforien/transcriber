@@ -39,9 +39,16 @@ $("form").validate({
 			maxlength: 255,
 			email: true
 		},
-		nativeLanguages: {
-			required: true,
+		otherDL: {
+			required: {
+				depends: function() {
+					return $('#otherDLRadio').is(':checked');
+				}
+			},
 			maxlength: 255
+		},
+		dominantLanguage: {
+			required: true
 		},
 		otherLanguages: {
 			maxlength: 255
@@ -54,6 +61,9 @@ $("form").validate({
 			digits: true,
 			range: [18, 127]
 		}
+	},
+	messages: {
+		otherDL: "Please specify a language, or select one from the list above."
 	},
 	errorPlacement: function(error, element) {
 		if (element.is(":radio")) {
