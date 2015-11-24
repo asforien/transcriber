@@ -24,12 +24,12 @@
 				<form action="/tone/survey" method="post">{% csrf_token %}
 					<div class="form-group">
 						<label for="inputName">Name</label>
-						<input type="text" class="form-control" id="inputName" placeholder="Name">
+						<input type="text" class="form-control" id="inputName" placeholder="Name" name="inputName">
 						<input type="hidden" class="form-control" name="encryptedName" id="encryptedName">
 					</div>
 					<div class="form-group">
 						<label for="inputEmail">Email address</label>
-						<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+						<input type="email" class="form-control" id="inputEmail" placeholder="Email" name="inputEmail">
 						<input type="hidden" class="form-control" name="encryptedEmail" id="encryptedEmail">
 					</div>
 					<div class="form-group">
@@ -45,7 +45,7 @@
 					</div>
 					<div class="form-group">
 						<label for="dominantLanguage">What is your dominant language?</label>
-
+						<p>Your dominant language is the language you are most fluent in and comfortable with. This is the language that you usually think in. You may only select one language. If you think you have multiple dominant languages, please choose one and state the others in the last question.</p> 
 						<div class="radio-container">
 							{% for DL in DLs %}
 		  					<div class="radio"><label class="radio"><input type="radio" name="dominantLanguage" value="{{DL}}">{{DL}}</label></div>

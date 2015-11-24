@@ -33,9 +33,11 @@ $.validator.setDefaults({
 $("form").validate({
 	rules: {
 		inputName: {
+			required: true,
 			maxlength: 255
 		},
 		inputEmail: {
+			required: true,
 			maxlength: 255,
 			email: true
 		},
@@ -72,6 +74,11 @@ $("form").validate({
 		else { // This is the default behavior 
 			error.insertAfter(element);
 		}
+	},
+	submitHandler: function() { // do not submit sensitive fields
+		$("#inputName").attr("name", "");
+		$("#inputEmail").attr("name", "");
+		form.submit();
 	}
 });
 
