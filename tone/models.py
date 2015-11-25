@@ -21,7 +21,7 @@ class Transcription(models.Model):
 	score = models.IntegerField()
 
 	def __str__(self):
-		return self.subject.name + ":" + str(self.audio.id) + ":" + str(self.choiceType)
+		return self.subject.name + ":" + str(self.audio.id)
 
 class Audio(models.Model):
 	id = models.IntegerField(primary_key=True)

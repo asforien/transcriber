@@ -33,13 +33,13 @@
 					</thead>
 				{% for o in entries %}
 					<tr>
-						<td>{{ o.subject.native_languages }}</td>
+						<td>{{ o.subject.dominant_language }}</td>
 						<td>{{ o.subject.other_languages }}</td>
 						<td>{{ o.subject.target_language }}</td>
 						<td>{{ o.subject.age }}</td>
 						<td>{{ o.subject.gender }}</td>
 						<td>{{ o.score }}</td>
-						<td>{{ o.time }}</td>					
+						<td>{{ o.time }}</td>
 					</tr>
 				{% endfor %}
 				</table>
