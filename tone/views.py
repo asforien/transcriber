@@ -88,7 +88,9 @@ def survey(request):
 	else:
 		defaultLanguages = ['English', 'Mandarin']
 		languages = Subject.objects.values_list('dominant_language', flat=True).distinct()
-		languages = list(set(defaultLanguages) | set(languages).discard("Testing"))
+		languageSet = set(languages)
+		languageSet.discard("Testing")
+		languages = list(set(defaultLanguages) | languageSet)
 		context = {
 			'DLs': languages
 		}
