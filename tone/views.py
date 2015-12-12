@@ -192,7 +192,7 @@ def sendemail(sub):
 		"Hi " + sub.name + ",",
 		"",
 		"Thanks for participating in our experiment!",
-		"Your score for the experiment was " + str(correct) + "/" + str(total) + "(" + score + ")" + ".",
+		"Your score for the experiment was " + str(correct) + "/" + str(total) + " (" + score + ")" + ".",
 		"Please let us know your preferred payment method (e.g. PayPal, bank transfer, or meet-up) so that we can process your reimbursement."
 		])
 	username = 'jeremy.yapjl@gmail.com'
