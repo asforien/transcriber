@@ -32,14 +32,17 @@
 				<li>You are above 21 years of age if you are a Singaporean, or above 18 years of age otherwise</li>
 				<li>You are using a browser other than Internet Explorer</li>
 				</ol>
-				<br/>
-				<div class="row text-center">
+				<div class="row row-margin text-center browser-unsupported" style="display:none">
+					<div class="col-xs-12">
+						<p class="btn btn-danger disabled">Sorry, your browser is not supported</p>
+					</div>
+				</div>
+				<div class="row row-margin text-center browser-supported" style="display:none">
 					<div class="col-xs-12">
 						<a href="/tone/" class="btn btn-primary">I am a new participant</a>
 					</div>
 				</div>
-				<br/>
-				<div class="row text-center">
+				<div class="row row-margin text-center browser-supported" style="display:none">
 					<div class="col-xs-12">
 						<a href="/tone/resume" class="btn btn-primary">Resume an incomplete session</a>
 					</div>
@@ -48,4 +51,6 @@
 		</div>
 	</div>
 </body>
+<script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>
+<script src="{% static "js/browser_check.js" %}" type="text/javascript"></script>
 </html>

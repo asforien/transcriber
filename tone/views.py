@@ -104,19 +104,16 @@ def survey(request):
 		assignedQns = (Subject.objects.filter(dominant_language=dominantLanguage)
 			.values_list('question_order', flat="True").distinct())
 		
-		q3s = []
+		num_questions = Audio.objects.all().count()
+
+		times_question_used = [0] * (num_questions + 1)
 		for qs in assignedQns:
-			q3s.append(int(qs.split(',')[2]))
+			times_question_used[int(qs.split(',')[2])] += 1
 
-		q3 = -1
-		for i in range(3, Audio.objects.all().count() + 1):
-			if i not in q3s:
+		q3 = 3
+		for i in range(4, num_questions + 1):
+			if times_question_used[i] < times_question_used[q3]:
 				q3 = i
-				break
-
-		if q3==-1:
-			return render(request, 'error.html',
-				{'error': 'We ran out of questions :( Please try again later.'})
 
 		if Subject.objects.all().count() % 2 == 0:
 			questionOrder = "1,2," + str(q3)
