@@ -16,12 +16,11 @@ def transcribe(request, subjectId, questionId):
 
 	subject = Subject.objects.get(pk=subjectId)
 	audioId = subject.question_order.split(',')[int(questionId) - 1]
+	audio = Audio.objects.get(pk=audioId)
 
 	if request.method == 'POST':
 		result = request.POST.get('result', '')
 		timeTaken = request.POST.get('timeTaken', '')
-
-		audio = Audio.objects.get(pk=audioId)
 
 		score = 0
 		for c, a in zip(result, audio.answer):
@@ -39,14 +38,38 @@ def transcribe(request, subjectId, questionId):
 		else:
 			return HttpResponseRedirect('/tone/' + subjectId + '/' + str(int(questionId) + 1))
 
+	elif questionId == '0':
+
+		alignments_file_path = settings.STATIC_ROOT + '/data/alignments/0.json'
+		alignments = open(alignments_file_path, 'r').read()
+
+		context = {
+			'subject_id': subjectId,
+			'audio_file_path': 'data/audio/0.wav',
+			'alignments': alignments,
+		}
+		return render(request, 'practice.html', context)
 	else:
+
+		try:
+			previous_transcription = Transcription.objects.get(subject=subject, audio=audio)
+		except:
+			previous_transcription = None
+			print("Error")
+
+		previous_answer = None
+		if previous_transcription:
+			previous_answer = previous_transcription.result
+
 		alignments_file_path = settings.STATIC_ROOT + '/data/alignments/' + audioId + '.json'
 		alignments = open(alignments_file_path, 'r').read()
 		context = {
 			'audio_file_path': 'data/audio/' + audioId + '.wav',
 			'subject_id': subjectId,
 			'question_id': questionId,
+			'prev_qn_id': str(int(questionId)-1),
 			'alignments': alignments,
+			'answers': previous_answer,
 		}
 		return render(request, 'toneNumber.html', context)
 

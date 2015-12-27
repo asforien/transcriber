@@ -34,6 +34,10 @@ $(function () {
 		$(".transcription").eq(0).remove();
 
 		setSelectedRegion(0);
+
+		$(".transcription-answer").each(function(index, element) {
+			setTranscription($(this), answers.charAt(index));
+		});
 	});
 
 	var target = $("#transcriptions");
@@ -140,23 +144,11 @@ $(function () {
     	document.activeElement.blur();
 	});
 
-	if (typeof previous_answers !== 'undefined') {
-		$(".transcription-value").each(function(index, element) {
-			setTranscription($(this), previous_answers.charAt(index))
-		});
-	}
+	$("#show-answers").click(function() {
+		$(".transcription-answer").show();
+		$(".transcription-menu").remove();
+	});
 });
-
-function getCookie(cname) {
-	var name = cname + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0; i<ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1);
-		if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-	}
-	return "";
-}
 
 function getRegionColor(index) {
 	var regionColor1 = "rgba(128, 128, 128, 0.4)";
@@ -166,8 +158,8 @@ function getRegionColor(index) {
 
 function setTranscription($container, result) {
 	result = result + "";
-	$container.html(result).removeClass()
-	.addClass("transcription-value tone-bg-" + result.toLowerCase());
+	$container.html(result).removeClass("tone-bg-1 tone-bg-2 tone-bg-3 tone-bg-4 tone-bg-5 tone-bg-6")
+	.addClass("tone-bg-" + result.toLowerCase());
 }
 
 function setSelectedRegion(index) {

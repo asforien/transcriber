@@ -52,10 +52,15 @@
 	}
 }
 
-.transcription-value {
+.transcription-value,
+.transcription-answer  {
 	width: 20px;
 	text-align: center;
 	border-radius: 50%;
+}
+
+.transcription-answer {
+	border: 1px solid black;
 }
 
 .transcription-value.selected {
