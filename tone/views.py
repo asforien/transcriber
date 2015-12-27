@@ -146,7 +146,7 @@ def survey(request):
 		sub = Subject.objects.create(name=name, email=email, dominant_language=dominantLanguage,
 			other_languages=otherLanguages, target_language=targetLanguage, gender=gender, age=age, question_order=questionOrder)
 
-		return HttpResponseRedirect('/tone/' + str(sub.pk) + '/1')
+		return HttpResponseRedirect('/tone/' + str(sub.pk) + '/0')
 
 	else:
 		defaultLanguages = ['English', 'Mandarin']
