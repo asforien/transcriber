@@ -5,7 +5,7 @@ var selectedRegion = -1;
 var startTime = 0;
 
 $(function () {
-	startTime = new Date().getTime();
+	$('#helpModal').modal('show'); 
 
 	wavesurfer.init({
 		container: document.querySelector('#wave'),

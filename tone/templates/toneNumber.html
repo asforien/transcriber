@@ -21,7 +21,7 @@
 				</button>
 
 				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#helpModal">
-					  Help
+					  Instructions
 				</button>
 				<div class="pull-right">
 					{% if not question_id == "1" %}
@@ -132,7 +132,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="helpModalLabel">Help</h4>
+					<h4 class="modal-title" id="helpModalLabel">Instructions</h4>
 				</div>
 				<div class="modal-body">
 					<h5><b>Mouse Controls</b></h5>
@@ -144,7 +144,9 @@
 					Left and right arrow keys: move the region cursor<br/>
 					1-6: mark the highlighted region as having that tone<br/>
 					Space: play the highlighted region<br/>
-					Shift + 1-6: Play the tone samples
+					Shift + 1-6: Play the tone samples<br/><br/>
+
+					<p>Re-open this dialog box by clicking on the "Instructions" button.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
