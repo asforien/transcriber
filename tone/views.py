@@ -176,7 +176,8 @@ def summary(request):
 			'score': str(int(correct / float(total) * 100)) + '%',
 			'time': time,
 		})
-	entries = sorted(entries, key=lambda k: k['score'], reverse=True) 
+	entries = sorted(entries, key=lambda k: k['score'], reverse=True)
+	entries = sorted(entries, key=lambda k: k['subject'].dominant_language)
 
 	context = {
 		'entries': entries
