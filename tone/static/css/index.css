@@ -45,13 +45,6 @@
 	position: absolute !important;
 }
 
-@media (max-width: 860px) {
-	.transcription:nth-child(even) {
-		transform: translateY(20px);
-		-webkit-transform: translateY(20px);
-	}
-}
-
 .transcription-value,
 .transcription-answer  {
 	width: 20px;

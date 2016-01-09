@@ -164,23 +164,55 @@ def end(request):
 	return render(request, 'end.html')
 
 def summary(request):
-	entries = []
+	subject_list = []
+	language_groups = {}
 	for sub in Subject.objects.all():
-		correct, total, time = getscore(sub)
+		correct, total, q1q2_correct, q1q2_total, time = getscore(sub)
 
 		if total == 0:
 			continue
 
-		entries.append({
+		subject_list.append({
 			'subject': sub,
-			'score': str(int(correct / float(total) * 100)) + '%',
+			'score': int(correct / total * 100),
 			'time': time,
 		})
-	entries = sorted(entries, key=lambda k: k['score'], reverse=True)
-	entries = sorted(entries, key=lambda k: k['subject'].dominant_language)
+
+		dl = sub.dominant_language
+		if dl not in language_groups:
+			language_groups[dl] = {
+				'name': dl,
+				'subjects': 0,
+				'correct': 0,
+				'total': 0,
+				'q1q2_correct': 0,
+				'q1q2_total': 0,
+				'time': 0,
+			}
+
+		lg = language_groups[dl]
+		lg['subjects'] += 1
+		lg['correct'] += correct
+		lg['total'] += total
+		lg['q1q2_correct'] += correct
+		lg['q1q2_total'] += total
+		lg['time'] += time
+
+	language_group_list = []
+	for lang in language_groups:
+		lg = language_groups[lang]
+		lg['score'] = int(lg['correct'] / lg['total'] * 100)
+		lg['q1q2_score'] = int(lg['q1q2_correct'] / lg['q1q2_total'] * 100)
+		lg['time'] = lg['time'] // lg['subjects']
+		language_group_list.append(language_groups[lang])
+
+	subject_list = sorted(subject_list, key=lambda k: k['score'], reverse=True)
+	subject_list = sorted(subject_list, key=lambda k: k['subject'].dominant_language)
+	language_group_list = sorted(language_group_list, key=lambda k: k['score'], reverse=True)
 
 	context = {
-		'entries': entries
+		'subjects': subject_list,
+		'language_groups': language_group_list,
 	}
 
 	return render(request, 'summary.html', context)
@@ -190,12 +222,18 @@ def getscore(sub):
 	correct = 0
 	total = 0
 	time = 0
+	q1q2_correct = 0
+	q1q2_total = 0
 	for t in Transcription.objects.filter(subject=sub):
 		correct += t.score
 		total += t.audio.numSegments
 		time += t.timeTaken
 
-	return (correct, total, time)
+		if t.audio.id == 1 or t.audio.id == 2:
+			q1q2_correct += t.score
+			q1q2_total += t.audio.numSegments
+
+	return (correct, total, q1q2_correct, q1q2_total, time)
 
 def sendemail(sub):
 
@@ -208,7 +246,7 @@ def sendemail(sub):
 	msg = "\r\n".join([
 		"From: jeremy.yapjl@gmail.com",
 		"To: " + sub.email,
-		"Subject: Experiment Results & Payment",
+		"Subject: Cantonese Tone Recognition Experiment",
 		"",
 		"Hi " + sub.name + ",",
 		"",
