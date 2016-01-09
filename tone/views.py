@@ -194,8 +194,8 @@ def summary(request):
 		lg['subjects'] += 1
 		lg['correct'] += correct
 		lg['total'] += total
-		lg['q1q2_correct'] += correct
-		lg['q1q2_total'] += total
+		lg['q1q2_correct'] += q1q2_correct
+		lg['q1q2_total'] += q1q2_total
 		lg['time'] += time
 
 	language_group_list = []
