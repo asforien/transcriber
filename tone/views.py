@@ -237,7 +237,7 @@ def getscore(sub):
 
 def sendemail(sub):
 
-	correct, total, time = getscore(sub)
+	correct, total, x, y, time = getscore(sub)
 	score = str(int(correct / float(total) * 100)) + '%'
 
 	import smtplib
