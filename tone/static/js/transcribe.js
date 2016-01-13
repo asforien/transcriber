@@ -34,6 +34,12 @@ $(function () {
 		$(".transcription").eq(0).remove();
 
 		setSelectedRegion(0);
+
+		if (typeof previous_answers !== 'undefined') {
+			$(".transcription-value").each(function(index, element) {
+				setTranscription($(this), previous_answers.charAt(index))
+			});
+		}
 	});
 
 	var target = $("#transcriptions");
@@ -139,12 +145,6 @@ $(function () {
 	$(document).on('hidden.bs.modal', function() {
     	document.activeElement.blur();
 	});
-
-	if (typeof previous_answers !== 'undefined') {
-		$(".transcription-value").each(function(index, element) {
-			setTranscription($(this), previous_answers.charAt(index))
-		});
-	}
 });
 
 function getCookie(cname) {
