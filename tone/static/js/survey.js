@@ -1,5 +1,14 @@
+String.prototype.toUnicode = function() {
+    var result = "";
+    for(var i = 0; i < this.length; i++) {
+        result += "\\u" + ("000" + this[i].charCodeAt(0).toString(16)).substr(-4);
+    }
+    return result;
+};
+
 $("form").submit(function(event) {
-	var cipherName = encryptedString(key, $("#inputName").val(),
+	var unicodeName = $("#inputName").val().toUnicode();
+	var cipherName = encryptedString(key, unicodeName,
 		RSAAPP.NoPadding, RSAAPP.RawEncoding
 	);
 	$("#encryptedName").val(window.btoa(cipherName));

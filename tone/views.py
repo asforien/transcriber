@@ -116,6 +116,7 @@ def survey(request):
 		name = key.decrypt(b64decode(cipherName))
 		email = key.decrypt(b64decode(cipherEmail))
 		name = name.decode('utf-8').replace('\0', '').encode('utf-8')
+		name = name.decode('unicode-escape')
 		email = email.decode('utf-8').replace('\0', '').encode('utf-8')
 
 		if Subject.objects.filter(email=email).count() != 0:
