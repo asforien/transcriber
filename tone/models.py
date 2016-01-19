@@ -4,7 +4,7 @@ class Subject(models.Model):
 	name = models.CharField(max_length=255)
 	email = models.CharField(max_length=255)
 	dominant_language = models.CharField(max_length=25)
-	other_languages = models.CharField(max_length=255)
+	other_languages = models.CharField(max_length=255, blank=True)
 	target_language = models.BooleanField(default=False)
 	gender = models.CharField(max_length=10)
 	age = models.IntegerField(default=0)
