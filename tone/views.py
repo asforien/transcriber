@@ -71,7 +71,7 @@ def transcribe(request, subjectId, questionId):
 			'alignments': alignments,
 			'answers': previous_answer,
 		}
-		return render(request, 'toneNumber.html', context)
+		return render(request, 'toneFeature.html', context)
 
 def start(request):
 

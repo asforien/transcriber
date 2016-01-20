@@ -42,15 +42,23 @@
 			<div class="col-xs-12">
 				<div id="transcriptions">
 					<div class="transcription">
-						<div class="transcription-value">?</div>
-						<div class="transcription-menu btn-group-vertical">
-							<div class="transcription-menu-triangle"></div>
-							<button type="button" class="btn tone-bg-hr">HR</button>
-							<button type="button" class="btn tone-bg-lr">LR</button>
-							<button type="button" class="btn tone-bg-hl">HL</button>
-							<button type="button" class="btn tone-bg-ml">ML</button>
-							<button type="button" class="btn tone-bg-ll">LL</button>
-							<button type="button" class="btn tone-bg-lf">LF</button>
+						<div class="transcription-box">
+							<div class="transcription-value">?</div>
+							<div class="transcription-menu btn-group-vertical">
+								<div class="transcription-menu-triangle"></div>
+								<button type="button" class="btn tone-bg-hr" data-value="R">Rising</button>
+								<button type="button" class="btn tone-bg-lr" data-value="L">Level</button>
+								<button type="button" class="btn tone-bg-hl" data-value="F">Falling</button>
+							</div>
+						</div>
+						<div class="transcription-box">
+							<div class="transcription-value">?</div>
+							<div class="transcription-menu btn-group-vertical">
+								<div class="transcription-menu-triangle"></div>
+								<button type="button" class="btn tone-bg-ml" data-value="H">High</button>
+								<button type="button" class="btn tone-bg-ll" data-value="M">Mid</button>
+								<button type="button" class="btn tone-bg-lf" data-value="L">Low</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -60,7 +68,7 @@
 			<div class="col-xs-12 text-center">
 				<h4>Instructions</h4>
 				<span>First, decide if each tone is rising, level or falling.<br/>
-				Next, select the tone with the closest tone height within that group. </span>
+				Next, select the tone with the closest tone height within that group.</span>
 			</div>
 		</div>
 

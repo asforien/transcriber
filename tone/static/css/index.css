@@ -48,6 +48,7 @@
 .transcription-value,
 .transcription-answer  {
 	width: 20px;
+	height: 20px;
 	text-align: center;
 	border-radius: 50%;
 }
@@ -81,13 +82,15 @@
 }
 
 .transcription .transcription-menu {
+	width: 40px;
+	position: absolute;
 	left: -10px;
 	height: 0px;
 	overflow-y: hidden;
 	z-index: 5;
 }
 
-.transcription:hover .transcription-menu {
+.transcription-box:hover .transcription-menu {
 	height: auto;
 }
 

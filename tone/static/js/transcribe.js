@@ -89,8 +89,8 @@ $(function () {
 	});
 
 	$("#transcriptions").on("click", ".transcription-menu button", function() {
-		var result = $(this).html()
-		var container = $(this).closest(".transcription").find(".transcription-value");
+		var result = $(this).data("value")
+		var container = $(this).closest(".transcription-box").find(".transcription-value");
 		setTranscription(container, result);
 	});
 
