@@ -201,7 +201,7 @@ def summary(request):
 						correct_by_tone[tone_number] += 1
 
 			total += len(answer_key[qn])
-			if qn == 1 or qn == 2:
+			if qn == 0 or qn == 1:
 				q1q2_total += len(answer_key[qn])
 
 		subject_list.append({
