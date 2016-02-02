@@ -34,6 +34,12 @@
 								<th>Subjects</th>
 								<th>Average Score</th>
 								<th>Q1+Q2 Score</th>
+								<th>Tone 1</th>
+								<th>Tone 2</th>
+								<th>Tone 3</th>
+								<th>Tone 4</th>
+								<th>Tone 5</th>
+								<th>Tone 6</th>
 								<th>Average Time</th>
 								</tr>
 							</thead>
@@ -43,6 +49,12 @@
 								<td>{{ lg.subjects }}</td>
 								<td>{{ lg.score }}%</td>
 								<td>{{ lg.q1q2_score }}%</td>
+								<td>{{ lg.score_by_tone.0}}%</td>
+								<td>{{ lg.score_by_tone.1 }}%</td>
+								<td>{{ lg.score_by_tone.2 }}%</td>
+								<td>{{ lg.score_by_tone.3 }}%</td>
+								<td>{{ lg.score_by_tone.4 }}%</td>
+								<td>{{ lg.score_by_tone.5 }}%</td>
 								<td>{{ lg.time }}</td>
 							</tr>
 						{% endfor %}

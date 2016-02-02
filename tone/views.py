@@ -31,7 +31,7 @@ def transcribe(request, subjectId, questionId):
 			defaults={'result': result, 'timeTaken': timeTaken, 'score': score})
 
 		if int(questionId) == 3:
-			t = threading.Thread(target=sendemail, args=[subject])
+			t = threading.Thread(target=send_email, args=[subject])
 			t.setDaemon(False)
 			t.start()
 			return HttpResponseRedirect('/tone/end')
@@ -71,7 +71,7 @@ def transcribe(request, subjectId, questionId):
 			'alignments': alignments,
 			'answers': previous_answer,
 		}
-		return render(request, 'toneFeature.html', context)
+		return render(request, 'toneNumber.html', context)
 
 def start(request):
 
@@ -167,11 +167,42 @@ def end(request):
 def summary(request):
 	subject_list = []
 	language_groups = {}
-	for sub in Subject.objects.all():
-		correct, total, q1q2_correct, q1q2_total, time = getscore(sub)
+	answer_key = Audio.objects.values_list('answer', flat=True)
 
-		if total == 0:
+	for sub in Subject.objects.all():
+		transcriptions = get_transcriptions(sub)
+		if not transcriptions:
 			continue
+
+		correct = 0
+		total = 0
+		time = 0
+		q1q2_correct = 0
+		q1q2_total = 0
+		correct_by_tone = [0] * 6
+		total_by_tone = [0] * 6
+		for t in transcriptions:
+			time += t[2]
+			qn = t[0]
+			result = t[1]
+
+			# pad result with zeroes to match answer key length for zipping
+			if len(result) < len(answer_key[qn]):
+				result += '0' * (len(result) - len(answer_key[qn]))
+
+			for c, a in zip(result, answer_key[qn]):
+				tone_number = int(a) - 1
+				if c == a:
+					correct += 1
+				if qn == 1 or qn == 2:
+					total_by_tone[tone_number] += 1
+					if c == a:
+						q1q2_correct += 1
+						correct_by_tone[tone_number] += 1
+
+			total += len(answer_key[qn])
+			if qn == 1 or qn == 2:
+				q1q2_total += len(answer_key[qn])
 
 		subject_list.append({
 			'subject': sub,
@@ -188,6 +219,8 @@ def summary(request):
 				'total': 0,
 				'q1q2_correct': 0,
 				'q1q2_total': 0,
+				'correct_by_tone': [0] * 6,
+				'total_by_tone': [0] * 6,
 				'time': 0,
 			}
 
@@ -197,14 +230,19 @@ def summary(request):
 		lg['total'] += total
 		lg['q1q2_correct'] += q1q2_correct
 		lg['q1q2_total'] += q1q2_total
+		for i in range(0,6):
+			lg['correct_by_tone'][i] += correct_by_tone[i]
+			lg['total_by_tone'][i] += total_by_tone[i]
 		lg['time'] += time
 
 	language_group_list = []
+
 	for lang in language_groups:
 		lg = language_groups[lang]
 		lg['score'] = int(lg['correct'] / lg['total'] * 100)
 		lg['q1q2_score'] = int(lg['q1q2_correct'] / lg['q1q2_total'] * 100)
 		lg['time'] = lg['time'] // lg['subjects']
+		lg['score_by_tone'] = [int(x / y * 100) for x, y in zip(lg['correct_by_tone'], lg['total_by_tone'])]
 		language_group_list.append(language_groups[lang])
 
 	subject_list = sorted(subject_list, key=lambda k: k['score'], reverse=True)
@@ -218,27 +256,32 @@ def summary(request):
 
 	return render(request, 'summary.html', context)
 
-def getscore(sub):
+def get_score(sub):
 
 	correct = 0
 	total = 0
 	time = 0
-	q1q2_correct = 0
-	q1q2_total = 0
 	for t in Transcription.objects.filter(subject=sub):
 		correct += t.score
 		total += t.audio.numSegments
 		time += t.timeTaken
 
-		if t.audio.id == 1 or t.audio.id == 2:
-			q1q2_correct += t.score
-			q1q2_total += t.audio.numSegments
+	return (correct, total, time)
 
-	return (correct, total, q1q2_correct, q1q2_total, time)
+def get_transcriptions(sub):
 
-def sendemail(sub):
+	results = []
+	for t in Transcription.objects.filter(subject=sub):
+		results.append((
+			t.audio.id,
+			t.result,
+			t.timeTaken
+		))
+	return results
 
-	correct, total, x, y, time = getscore(sub)
+def send_email(sub):
+
+	correct, total, time = get_score(sub)
 	score = str(int(correct / float(total) * 100)) + '%'
 
 	import smtplib
