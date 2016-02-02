@@ -183,7 +183,7 @@ def summary(request):
 		total_by_tone = [0] * 6
 		for t in transcriptions:
 			time += t[2]
-			qn = t[0]
+			qn = t[0] - 1 # zero-based indexing
 			result = t[1]
 
 			# pad result with zeroes to match answer key length for zipping
@@ -194,7 +194,7 @@ def summary(request):
 				tone_number = int(a) - 1
 				if c == a:
 					correct += 1
-				if qn == 1 or qn == 2:
+				if qn == 0 or qn == 1:
 					total_by_tone[tone_number] += 1
 					if c == a:
 						q1q2_correct += 1
