@@ -81,7 +81,7 @@
 	padding-right: 6px;
 }
 
-.transcription .transcription-menu {
+.transcription-menu {
 	width: 40px;
 	position: absolute;
 	left: -10px;
@@ -90,7 +90,7 @@
 	z-index: 5;
 }
 
-.transcription-box:hover .transcription-menu {
+.transcription-menu.active {
 	height: auto;
 }
 

@@ -138,16 +138,10 @@
 					<h4 class="modal-title" id="helpModalLabel">Help</h4>
 				</div>
 				<div class="modal-body">
-					<h5><b>Mouse Controls</b></h5>
+					<h5><b>Controls</b></h5>
 					Click on each region to play it<br/>
 					Hover over each of the circles to open a drop-down menu<br/>
-					Select the appropriate tone number from each menu<br/>
-
-					<h5><b>Keyboard Shortcuts</b></h5>
-					Left and right arrow keys: move the region cursor<br/>
-					1-6: mark the highlighted region as having the corresponding tone, from left to right<br/>
-					Space: play the highlighted region<br/>
-					Shift + 1-6: Play the tone samples, from left to right
+					Select the appropriate tone feature from each menu<br/>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -160,7 +154,6 @@
 <script>
 	var audio_file_path = "{% static audio_file_path %}";
 	var alignments = {{ alignments|safe }};
-	var choices = ["HR", "LR", "HL", "ML", "LL", "LF"];
 </script>
 
 <script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>
@@ -168,6 +161,6 @@
 <script src="{% static "wavesurfer/wavesurfer.min.js" %}" type="text/javascript"></script>
 <script src="{% static "wavesurfer/plugin/wavesurfer.regions.min.js" %}" type="text/javascript"></script>
 <script src="{% static "wavesurfer/plugin/wavesurfer.spectrogram.min.js" %}" type="text/javascript"></script>
-<script src="{% static "js/transcribe.js" %}" type="text/javascript"></script>
+<script src="{% static "js/tone_feature.js" %}" type="text/javascript"></script>
 <script src="{% static "js/tones.js" %}" type="text/javascript"></script>
 </html>

@@ -40,6 +40,12 @@ $(function () {
 				setTranscription($(this), previous_answers.charAt(index))
 			});
 		}
+
+		if (answers) {
+			$(".transcription-answer").each(function(index, element) {
+				setTranscription($(this), answers.charAt(index));
+			});
+		}
 	});
 
 	var target = $("#transcriptions");
@@ -90,8 +96,16 @@ $(function () {
 
 	$("#transcriptions").on("click", ".transcription-menu button", function() {
 		var result = $(this).data("value")
-		var container = $(this).closest(".transcription-box").find(".transcription-value");
+		var container = $(this).closest(".transcription").find(".transcription-value");
 		setTranscription(container, result);
+	});
+
+	$("#transcriptions").on("mouseenter mouseleave", ".transcription", function(e) {
+		if (e.type == "mouseenter") {
+			$(this).find(".transcription-menu").addClass("active")
+		} else {
+			$(this).find(".transcription-menu").removeClass("active")
+		}
 	});
 
 	// Keyboard controls
@@ -121,13 +135,10 @@ $(function () {
 
 			case 49: case 50: case 51: case 52: case 53: case 54: // 1-6
 				if (!isShiftDown) {
-					var choiceNum = event.which - 49;
-					if (choiceNum < choices.length) {
-						var result = choices[choiceNum];
-						var container = $(".transcription-value.selected")
-						setTranscription(container, result)
-						container.addClass("selected")
-					}
+					var result = event.which - 48;
+					var container = $(".transcription-value.selected")
+					setTranscription(container, result)
+					container.addClass("selected")
 				} else {
 					$("audio").get(event.which - 49).play();
 				}
@@ -147,17 +158,6 @@ $(function () {
 	});
 });
 
-function getCookie(cname) {
-	var name = cname + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0; i<ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1);
-		if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-	}
-	return "";
-}
-
 function getRegionColor(index) {
 	var regionColor1 = "rgba(128, 128, 128, 0.4)";
 	var regionColor2 = "rgba(64, 64, 64, 0.4)";
@@ -166,8 +166,8 @@ function getRegionColor(index) {
 
 function setTranscription($container, result) {
 	result = result + "";
-	$container.html(result).removeClass()
-	.addClass("transcription-value tone-bg-" + result.toLowerCase());
+	$container.html(result).removeClass("tone-bg-1 tone-bg-2 tone-bg-3 tone-bg-4 tone-bg-5 tone-bg-6")
+	.addClass("tone-bg-" + result.toLowerCase());
 }
 
 function setSelectedRegion(index) {

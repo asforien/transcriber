@@ -1,10 +1,10 @@
 var wavesurfer = Object.create(WaveSurfer);
 var regions = [];
-var selectedRegion = -1;
 
 var startTime = 0;
 
 $(function () {
+	startTime = new Date().getTime();
 
 	wavesurfer.init({
 		container: document.querySelector('#wave'),
@@ -32,11 +32,11 @@ $(function () {
 		});
 		$(".transcription").eq(0).remove();
 
-		setSelectedRegion(0);
-
-		$(".transcription-answer").each(function(index, element) {
-			setTranscription($(this), answers.charAt(index));
-		});
+		if (typeof previous_answers !== 'undefined') {
+			$(".transcription-value").each(function(index, element) {
+				setTranscription($(this), previous_answers.charAt(index))
+			});
+		}
 	});
 
 	var target = $("#transcriptions");
@@ -47,7 +47,6 @@ $(function () {
 	wavesurfer.on('region-click', function(region, e) {
 		e.stopPropagation();
 		region.play();
-		setSelectedRegion(region.index);
 	});
 
 	wavesurfer.load(audio_file_path);
@@ -87,73 +86,13 @@ $(function () {
 
 	$("#transcriptions").on("click", ".transcription-menu button", function() {
 		var result = $(this).data("value")
-		var container = $(this).closest(".transcription").find(".transcription-value");
+		var container = $(this).closest(".transcription-box").find(".transcription-value");
 		setTranscription(container, result);
-	});
-
-	$("#transcriptions").on("mouseenter mouseleave", ".transcription", function(e) {
-		if (e.type == "mouseenter") {
-			$(this).find(".transcription-menu").addClass("active")
-		} else {
-			$(this).find(".transcription-menu").removeClass("active")
-		}
-	});
-
-	// Keyboard controls
-
-	var isShiftDown = false;
-	$(document).keydown(function(event) {
-		switch(event.which) {
-			case 16: // shift
-				isShiftDown = true;
-			break;
-
-			case 32: // space
-				regions[selectedRegion].play();
-			break;
-
-			case 37: // left
-				if (selectedRegion > 0) {
-					setSelectedRegion(selectedRegion - 1);
-				}
-			break;
-
-			case 39: // right
-				if (selectedRegion < regions.length - 1) {
-					setSelectedRegion(selectedRegion + 1);
-				}
-			break;
-
-			case 49: case 50: case 51: case 52: case 53: case 54: // 1-6
-				if (!isShiftDown) {
-					var choiceNum = event.which - 49;
-					if (choiceNum < choices.length) {
-						var result = choices[choiceNum];
-						var container = $(".transcription-value.selected")
-						setTranscription(container, result)
-						container.addClass("selected")
-					}
-				} else {
-					$("audio").get(event.which - 49).play();
-				}
-			break;
-		}
-	});
-
-	$(document).keyup(function(event) {
-		if (event.which == 16) { // shift
-			isShiftDown = false;
-		}
 	});
 
 	// prevent space from re-opening modal
 	$(document).on('hidden.bs.modal', function() {
     	document.activeElement.blur();
-	});
-
-	$("#show-answers").click(function() {
-		$(".transcription-answer").show();
-		$(".transcription-menu").remove();
 	});
 });
 
@@ -165,18 +104,6 @@ function getRegionColor(index) {
 
 function setTranscription($container, result) {
 	result = result + "";
-	$container.html(result).removeClass("tone-bg-1 tone-bg-2 tone-bg-3 tone-bg-4 tone-bg-5 tone-bg-6")
-	.addClass("tone-bg-" + result.toLowerCase());
-}
-
-function setSelectedRegion(index) {
-	if (selectedRegion != -1) {
-		regions[selectedRegion].update({color: getRegionColor(selectedRegion)});
-		$(".transcription-value").eq(selectedRegion).removeClass("selected");
-	}
-
-	selectedRegion = index;
-	var highlightColor = "rgba(153, 102, 153, 0.4)";
-	regions[selectedRegion].update({color: highlightColor});
-	$(".transcription-value").eq(selectedRegion).addClass("selected");
+	$container.html(result).removeClass()
+	.addClass("transcription-value tone-bg-" + result.toLowerCase());
 }
