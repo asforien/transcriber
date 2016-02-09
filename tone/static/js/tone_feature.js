@@ -67,7 +67,7 @@ $(function () {
 		var complete = true;
 
 		$(".transcription-value").each(function(i) {
-			var result = $(this).html().trim();
+			var result = $(this).data("value");
 			
 			if (result == "?") {
 				complete = false;
@@ -84,10 +84,42 @@ $(function () {
 		}
 	});
 
-	$("#transcriptions").on("click", ".transcription-menu button", function() {
+	$("#transcriptions").on("mouseenter mouseleave", ".transcription", function(e) {
+		if (e.type == "mouseenter") {
+			$(this).find(".transcription-menu").addClass("active")
+		} else {
+			$(this).find(".transcription-menu").removeClass("active")
+			$(this).find(".feature-rising-menu, .feature-level-menu, .feature-falling-menu").hide()
+			$(this).find(".feature-main-menu").show()
+		}
+	});
+
+	$("#transcriptions").on("click", ".btn-rising-menu", function() {
+		$menu = $(this).closest(".transcription-menu");
+		$menu.find(".feature-rising-menu").show();
+		$menu.find(".feature-main-menu").hide();
+	});
+
+	$("#transcriptions").on("click", ".btn-level-menu", function() {
+		$menu = $(this).closest(".transcription-menu");
+		$menu.find(".feature-level-menu").show();
+		$menu.find(".feature-main-menu").hide();
+	});
+
+	$("#transcriptions").on("click", ".btn-falling-menu", function() {
+		$menu = $(this).closest(".transcription-menu");
+		$menu.find(".feature-falling-menu").show();
+		$menu.find(".feature-main-menu").hide();
+	});
+
+	$("#transcriptions").on("click", ".tone-feature-btn", function() {
 		var result = $(this).data("value")
-		var container = $(this).closest(".transcription-box").find(".transcription-value");
+		var container = $(this).closest(".transcription").find(".transcription-value");
 		setTranscription(container, result);
+		$menu = $(this).closest(".transcription-menu");
+		$menu.find(".feature-rising-menu, .feature-level-menu, .feature-falling-menu").hide();
+		$menu.find(".feature-main-menu").show();
+		$menu.removeClass("active");
 	});
 
 	// prevent space from re-opening modal
@@ -102,8 +134,13 @@ function getRegionColor(index) {
 	return index % 2 == 0 ? regionColor1 : regionColor2;
 }
 
+var repr = ["", "HL", "HR", "ML", "LF", "LR", "LL"]
+
 function setTranscription($container, result) {
 	result = result + "";
-	$container.html(result).removeClass()
-	.addClass("transcription-value tone-bg-" + result.toLowerCase());
+	var tone_feature = repr[result];
+	$container.html(tone_feature)
+		.data("value", result)
+		.removeClass("tone-bg-hr tone-bg-lr tone-bg-hl tone-bg-ml tone-bg-ll tone-bg-lf incomplete")
+		.addClass("tone-bg-" + tone_feature.toLowerCase());
 }

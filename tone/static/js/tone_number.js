@@ -77,7 +77,7 @@ $(function () {
 		var complete = true;
 
 		$(".transcription-value").each(function(i) {
-			var result = $(this).html().trim();
+			var result = $(this).data("value");
 			
 			if (result == "?") {
 				complete = false;
@@ -166,8 +166,10 @@ function getRegionColor(index) {
 
 function setTranscription($container, result) {
 	result = result + "";
-	$container.html(result).removeClass("tone-bg-1 tone-bg-2 tone-bg-3 tone-bg-4 tone-bg-5 tone-bg-6")
-	.addClass("tone-bg-" + result.toLowerCase());
+	$container.html(result)
+		.data("value", result)
+		.removeClass("tone-bg-1 tone-bg-2 tone-bg-3 tone-bg-4 tone-bg-5 tone-bg-6")
+		.addClass("tone-bg-" + result.toLowerCase());
 }
 
 function setSelectedRegion(index) {

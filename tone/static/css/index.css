@@ -69,16 +69,12 @@
 	background-color: #c56;
 }
 
+/* Transcription menu styles */
+
 .transcription-menu-triangle {
 	border-style: solid;
 	border-width: 0px 20px 20px 20px;
 	border-color: transparent transparent #444 transparent;
-}
-
-.transcription-menu .btn {
-	border: 1px solid black;
-	padding-left: 6px;
-	padding-right: 6px;
 }
 
 .transcription-menu {
@@ -92,6 +88,29 @@
 
 .transcription-menu.active {
 	height: auto;
+}
+
+/* Tone number menu styles */
+
+.transcription-menu .btn {
+	border: 1px solid black;
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+/* Tone contour menu styles */
+
+.transcription-menu-graphic {
+	border: 1px solid black;
+	height: 40px;
+}
+
+.transcription-menu-graphic:not(:first-child) {
+	margin-top: -1px;
+}
+
+.transcription-menu-graphic .tone-contour {
+	border-width: 3px;
 }
 
 /* Teaching example styles */
@@ -110,16 +129,6 @@
 	margin: 10px;
 }
 
-.positive {
-	color: green;
-	border-color: green;
-}
-
-.negative {
-	color: red;
-	border-color: red;
-}
-
 ul.flex-item {
 	padding-left: 0px;
 	margin-bottom: 0px;
@@ -127,20 +136,11 @@ ul.flex-item {
 	list-style-type: none;
 }
 
-.positive li:before,
-li.positive:before {
-	content: "+ ";
-}
-
-.negative li:before,
-li.negative:before {
-	content: "- ";
-}
-
 /* Tone numbers and contours */
 
 .tone-container {
 	margin-top: 25px;
+	height: 100px;
 }
 
 .tone-container:hover {
@@ -157,19 +157,17 @@ li.negative:before {
 
 .tone-word {
 	height: 100px;
-	width: 50px;
+	width: 100px;
 	line-height: 100px;
 	position: absolute;
 	font-size: 36px;
 	z-index: 2;
-	transform: translateX(25px);
-	-webkit-transform: translateX(25px);
 	pointer-events: none;
 }
 
-.tone {
-	height: 100px;
-	width: 98px;
+.tone-contour {
+	height: 100%;
+	width: 100%;
 	border-bottom: 5px solid white;
 	z-index: 1;
 	pointer-events: none;
@@ -225,15 +223,4 @@ li.negative:before {
 .tone-bg-ll { background-color: #882; }
 .tone-bg-lf { background-color: #78b; }
 
-.chinese-tone-3 {
-	border-right: 3px solid red;
-	-moz-transform: translate(0, -10%) rotate(45deg) scale(0.71);
-	-webkit-transform: translate(0, -10%) rotate(45deg) scale(0.71);
-	transform: translate(0, -10%) rotate(45deg) scale(0.71);
-}
-
-.chinese-tone-4 {
-	-moz-transform: skewY(40deg) translateY(-50%);
-	-webkit-transform: skewY(40deg) translateY(-50%);
-	transform: skewY(40deg) translateY(-50%);
-}
+.tone-bg-na { background-color: #aaa;}
