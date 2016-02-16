@@ -286,7 +286,7 @@ def send_email(sub):
 
 	import smtplib
 	fromaddr = 'jeremy.yapjl@gmail.com'
-	toaddr  = sub.email
+	toaddr  = sub.email.strip()
 	msg = "\r\n".join([
 		"From: jeremy.yapjl@gmail.com",
 		"To: " + sub.email,
@@ -398,7 +398,7 @@ def alt_survey(request):
 		email = key.decrypt(b64decode(cipherEmail))
 		name = name.decode('utf-8').replace('\0', '').encode('utf-8')
 		name = name.decode('unicode-escape')
-		email = email.decode('utf-8').replace('\0', '').encode('utf-8')
+		email = email.decode('utf-8').replace('\0', '').encode('utf-8') + ' '
 
 		# Generate questions for subject
 
