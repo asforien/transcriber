@@ -398,7 +398,7 @@ def alt_survey(request):
 		email = key.decrypt(b64decode(cipherEmail))
 		name = name.decode('utf-8').replace('\0', '').encode('utf-8')
 		name = name.decode('unicode-escape')
-		email = email.decode('utf-8').replace('\0', '').encode('utf-8') + ' '
+		email = b' ' + email.decode('utf-8').replace('\0', '').encode('utf-8')
 
 		# Generate questions for subject
 
