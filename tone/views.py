@@ -48,7 +48,7 @@ def transcribe(request, subjectId, questionId):
 			'audio_file_path': 'data/audio/0.wav',
 			'alignments': alignments,
 		}
-		return render(request, 'practice.html', context)
+		return render(request, 'feature_practice.html', context)
 	else:
 
 		try:
@@ -71,7 +71,7 @@ def transcribe(request, subjectId, questionId):
 			'alignments': alignments,
 			'answers': previous_answer,
 		}
-		return render(request, 'toneFeature.html', context)
+		return render(request, 'feature_transcribe.html', context)
 
 def start(request):
 
@@ -313,3 +313,126 @@ def send_email(sub):
 	server.login(username,password)
 	server.sendmail(fromaddr, toaddr, msg)
 	server.quit()
+
+# Functions mapping to alt interface routes
+
+def alt_transcribe(request, subjectId, questionId):
+
+	subject = Subject.objects.get(pk=subjectId)
+	audioId = subject.question_order.split(',')[int(questionId) - 1]
+	audio = Audio.objects.get(pk=audioId)
+
+	if request.method == 'POST':
+		result = request.POST.get('result', '')
+		timeTaken = request.POST.get('timeTaken', '')
+
+		score = 0
+		for c, a in zip(result, audio.answer):
+			if c == a:
+				score += 1
+
+		Transcription.objects.update_or_create(subject=subject, audio=audio,
+			defaults={'result': result, 'timeTaken': timeTaken, 'score': score})
+
+		if int(questionId) == 3:
+			t = threading.Thread(target=send_email, args=[subject])
+			t.setDaemon(False)
+			t.start()
+			return HttpResponseRedirect('/tone/end')
+		else:
+			return HttpResponseRedirect('/tone/alt/' + subjectId + '/' + str(int(questionId) + 1))
+
+	elif questionId == '0':
+
+		alignments_file_path = settings.STATIC_ROOT + '/data/alignments/0.json'
+		alignments = open(alignments_file_path, 'r').read()
+
+		context = {
+			'subject_id': subjectId,
+			'audio_file_path': 'data/audio/0.wav',
+			'alignments': alignments,
+		}
+		return render(request, 'feature_practice.html', context)
+	else:
+
+		try:
+			previous_transcription = Transcription.objects.get(subject=subject, audio=audio)
+		except:
+			previous_transcription = None
+			print("Error")
+
+		previous_answer = None
+		if previous_transcription:
+			previous_answer = previous_transcription.result
+
+		alignments_file_path = settings.STATIC_ROOT + '/data/alignments/' + audioId + '.json'
+		alignments = open(alignments_file_path, 'r').read()
+		context = {
+			'audio_file_path': 'data/audio/' + audioId + '.wav',
+			'subject_id': subjectId,
+			'question_id': questionId,
+			'prev_qn_id': str(int(questionId)-1),
+			'alignments': alignments,
+			'answers': previous_answer,
+		}
+		return render(request, 'feature_transcribe.html', context)
+
+def alt_start(request):
+
+	return render(request, 'alt_start.html')
+
+def alt_survey(request):
+
+	if request.method == 'POST':
+		cipherName = request.POST.get('encryptedName', '')
+		cipherEmail = request.POST.get('encryptedEmail', '')
+		dominantLanguage = request.POST.get('dominantLanguage', '')
+		otherLanguages = request.POST.get('otherLanguages', '')
+		targetLanguage = request.POST.get('targetLanguage', '') == 'on'
+		gender = request.POST.get('gender', '')
+		age = request.POST.get('age', '')
+
+		f = open(settings.STATIC_ROOT + '/rsa/private_key.pem', 'r')
+		key = RSA.importKey(f.read())
+		name = key.decrypt(b64decode(cipherName))
+		email = key.decrypt(b64decode(cipherEmail))
+		name = name.decode('utf-8').replace('\0', '').encode('utf-8')
+		name = name.decode('unicode-escape')
+		email = email.decode('utf-8').replace('\0', '').encode('utf-8')
+
+		# Generate questions for subject
+
+		assignedQns = (Subject.objects.filter(dominant_language=dominantLanguage)
+			.values_list('question_order', flat="True").distinct())
+		
+		num_questions = Audio.objects.all().count()
+
+		times_question_used = [0] * (num_questions + 1)
+		for qs in assignedQns:
+			times_question_used[int(qs.split(',')[2])] += 1
+
+		q3 = 5
+		for i in range(6, num_questions + 1):
+			if times_question_used[i] < times_question_used[q3]:
+				q3 = i
+
+		if Subject.objects.all().count() % 2 == 0:
+			questionOrder = "3,4," + str(q3)
+		else:
+			questionOrder = "4,3," + str(q3)
+
+		sub = Subject.objects.create(name=name, email=email, dominant_language=dominantLanguage,
+			other_languages=otherLanguages, target_language=targetLanguage, gender=gender, age=age, question_order=questionOrder)
+
+		return HttpResponseRedirect('/tone/alt/' + str(sub.pk) + '/0')
+
+	else:
+		defaultLanguages = ['English', 'Mandarin']
+		languages = Subject.objects.values_list('dominant_language', flat=True).distinct()
+		languageSet = set(languages)
+		languageSet.discard("Testing")
+		languages = list(set(defaultLanguages) | languageSet)
+		context = {
+			'DLs': languages
+		}
+		return render(request, 'alt_survey.html', context)

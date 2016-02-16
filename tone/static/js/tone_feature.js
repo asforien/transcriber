@@ -37,6 +37,12 @@ $(function () {
 				setTranscription($(this), previous_answers.charAt(index))
 			});
 		}
+
+		if (answers) {
+			$(".transcription-answer").each(function(index, element) {
+				setTranscription($(this), answers.charAt(index));
+			});
+		}
 	});
 
 	var target = $("#transcriptions");

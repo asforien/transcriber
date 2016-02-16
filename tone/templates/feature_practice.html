@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row row-margin">
+		<div class="row row-margin" style="margin-bottom:14px">
 			<div class="col-xs-12">
 				<button class="btn btn-primary" id="btn-play">
 					<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Play
@@ -24,27 +24,14 @@
 					  Instructions
 				</button>
 				<div class="pull-right">
-					{% if not question_id == "1" %}
-					<a class="btn btn-default" href="/tone/{{ subject_id }}/{{ prev_qn_id }}">
-						<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
-						Back
+					<span>&nbsp;&nbsp;Practice Question&nbsp;&nbsp;</span>
+					<button class="btn btn-default" id="show-answers">
+					Show Answers
+					</button>
+					<a href="/tone/alt/{{ subject_id }}/1" class="btn btn-success">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						Next
 					</a>
-					{% endif %}
-
-					<form action="/tone/{{ subject_id }}/{{ question_id }}" method="post" class="form-inline" style="display:inline-block;">{% csrf_token %}
-						<span>&nbsp;&nbsp;Question {{question_id}} of 3&nbsp;&nbsp;</span>
-						<input type="hidden" name="result" id="result">
-						<input type="hidden" name="subId" id="subId">
-						<input type="hidden" name="timeTaken" id="timeTaken">
-						<button class="btn btn-success">
-							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-							{% if question_id == "3" %}
-							Finish
-							{% else %}
-							Next
-							{% endif %}
-						</button>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -58,6 +45,7 @@
 				<div id="transcriptions">
 					<div class="transcription">
 						<div class="transcription-value" data-value="?">?</div>
+						<div class="transcription-answer" style="display:none">1</div>
 						<div class="transcription-menu btn-group-vertical">
 							<div class="transcription-menu-triangle"></div>
 							<div class="feature-main-menu">
@@ -72,29 +60,29 @@
 								</div>
 							</div>
 							<div class="feature-rising-menu" style="display:none">
-								<div class="transcription-menu-graphic tone-bg-hr tone-feature-btn" title="High" data-value="2">
+								<div class="transcription-menu-graphic tone-bg-hr tone-feature-btn" title="High Rising" data-value="2">
 									<div class="tone-contour tone-2"></div>
 								</div>
 								<div class="transcription-menu-graphic tone-bg-na"></div>
-								<div class="transcription-menu-graphic tone-bg-lr tone-feature-btn" title="Low" data-value="5">
+								<div class="transcription-menu-graphic tone-bg-lr tone-feature-btn" title="Low Rising" data-value="5">
 									<div class="tone-contour tone-5"></div>
 								</div>
 							</div>
 							<div class="feature-level-menu" style="display:none">
-								<div class="transcription-menu-graphic tone-bg-hl tone-feature-btn" title="High" data-value="1">
+								<div class="transcription-menu-graphic tone-bg-hl tone-feature-btn" title="High Level" data-value="1">
 									<div class="tone-contour tone-1"></div>
 								</div>
-								<div class="transcription-menu-graphic tone-bg-ml tone-feature-btn" title="Mid" data-value="3">
+								<div class="transcription-menu-graphic tone-bg-ml tone-feature-btn" title="Mid Level" data-value="3">
 									<div class="tone-contour tone-3"></div>
 								</div>
-								<div class="transcription-menu-graphic tone-bg-ll tone-feature-btn" title="Low" data-value="6">
+								<div class="transcription-menu-graphic tone-bg-ll tone-feature-btn" title="Low Level" data-value="6">
 									<div class="tone-contour tone-6"></div>
 								</div>
 							</div>
 							<div class="feature-falling-menu" style="display:none">
 								<div class="transcription-menu-graphic tone-bg-na"></div>
 								<div class="transcription-menu-graphic tone-bg-na"></div>
-								<div class="transcription-menu-graphic tone-bg-lf tone-feature-btn" title="Low" data-value="4">
+								<div class="transcription-menu-graphic tone-bg-lf tone-feature-btn" title="Low Falling" data-value="4">
 									<div class="tone-contour tone-4"></div>
 								</div>
 							</div>
@@ -105,6 +93,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 text-center">
+				<h4 class="text-info">Practice Question - Answers will not count towards your final score</h4>
 				<h4>Instructions</h4>
 				<span>First, decide if each tone is rising, level or falling.<br/>
 				Next, select the tone with the closest tone height within that group.</span>
@@ -180,7 +169,9 @@
 					<h5><b>Controls</b></h5>
 					Click on each region to play it<br/>
 					Hover over each of the circles to open a drop-down menu<br/>
-					Select the appropriate tone feature from each menu<br/>
+					Select the appropriate tone feature from each menu<br/><br/>
+
+					<p>Re-open this dialog box by clicking on the "Instructions" button.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -193,6 +184,7 @@
 <script>
 	var audio_file_path = "{% static audio_file_path %}";
 	var alignments = {{ alignments|safe }};
+	var answers = "46212146231326566254266326";
 </script>
 
 <script src="{% static "jquery/jquery-2.1.4.min.js" %}"></script>
@@ -202,4 +194,13 @@
 <script src="{% static "wavesurfer/plugin/wavesurfer.spectrogram.min.js" %}" type="text/javascript"></script>
 <script src="{% static "js/tone_feature.js" %}" type="text/javascript"></script>
 <script src="{% static "js/tones.js" %}" type="text/javascript"></script>
+<script>
+$(function () {
+	$('#helpModal').modal('show');
+	$("#show-answers").click(function() {
+		$(".transcription-answer").show();
+		$(".transcription-menu").remove();
+	});
+});
+</script>
 </html>
