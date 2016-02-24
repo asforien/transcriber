@@ -256,7 +256,7 @@ def summary(request):
 			diff = score - avg_score
 			variance += diff * diff
 		std_dev = (variance / len(scores)) ** 0.5
-		lg['std_err'] = "{0:.2f}".format(std_dev / (len(scores) ** 0.5))
+		lg['std_err'] = "{0:.4f}".format(std_dev / (len(scores) ** 0.5))
 
 	subject_list = sorted(subject_list, key=lambda k: k['score'], reverse=True)
 	subject_list = sorted(subject_list, key=lambda k: k['subject'].dominant_language)
