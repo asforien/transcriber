@@ -32,7 +32,7 @@
 								<tr>
 								<th>Language Group</th>
 								<th>Subjects</th>
-								<th>Average Score</th>
+								<th>Avg. Score</th>
 								<th>Q1+Q2 Score</th>
 								<th>Tone 1</th>
 								<th>Tone 2</th>
@@ -40,7 +40,8 @@
 								<th>Tone 4</th>
 								<th>Tone 5</th>
 								<th>Tone 6</th>
-								<th>Average Time</th>
+								<th>Avg. Time</th>
+								<th>Std. Err.</th>
 								</tr>
 							</thead>
 						{% for lg in language_groups %}
@@ -56,6 +57,7 @@
 								<td>{{ lg.score_by_tone.4 }}%</td>
 								<td>{{ lg.score_by_tone.5 }}%</td>
 								<td>{{ lg.time }}</td>
+								<td>{{ lg.std_err }}</td>
 							</tr>
 						{% endfor %}
 						</table>

@@ -204,9 +204,11 @@ def summary(request):
 			if qn == 0 or qn == 1:
 				q1q2_total += len(answer_key[qn])
 
+		score = correct / total
+
 		subject_list.append({
 			'subject': sub,
-			'score': int(correct / total * 100),
+			'score': int(score * 100),
 			'time': time,
 		})
 
@@ -222,6 +224,7 @@ def summary(request):
 				'correct_by_tone': [0] * 6,
 				'total_by_tone': [0] * 6,
 				'time': 0,
+				'scores': [],
 			}
 
 		lg = language_groups[dl]
@@ -234,6 +237,7 @@ def summary(request):
 			lg['correct_by_tone'][i] += correct_by_tone[i]
 			lg['total_by_tone'][i] += total_by_tone[i]
 		lg['time'] += time
+		lg['scores'].append(score)
 
 	language_group_list = []
 
@@ -244,6 +248,15 @@ def summary(request):
 		lg['time'] = lg['time'] // lg['subjects']
 		lg['score_by_tone'] = [int(x / y * 100) for x, y in zip(lg['correct_by_tone'], lg['total_by_tone'])]
 		language_group_list.append(language_groups[lang])
+
+		scores = lg['scores']
+		avg_score = sum(scores)/len(scores)
+		variance = 0
+		for score in scores:
+			diff = score - avg_score
+			variance += diff * diff
+		std_dev = (variance / len(scores)) ** 0.5
+		lg['std_err'] = std_dev / (len(scores) ** 0.5)
 
 	subject_list = sorted(subject_list, key=lambda k: k['score'], reverse=True)
 	subject_list = sorted(subject_list, key=lambda k: k['subject'].dominant_language)
