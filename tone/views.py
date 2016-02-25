@@ -169,7 +169,7 @@ def summary(request):
 	language_groups = {}
 	answer_key = Audio.objects.values_list('answer', flat=True)
 
-	for sub in Subject.objects.all():
+	for sub in Subject.objects.filter(interface=0):
 		transcriptions = get_transcriptions(sub)
 		if not transcriptions:
 			continue
@@ -411,7 +411,7 @@ def alt_survey(request):
 		email = key.decrypt(b64decode(cipherEmail))
 		name = name.decode('utf-8').replace('\0', '').encode('utf-8')
 		name = name.decode('unicode-escape')
-		email = b' ' + email.decode('utf-8').replace('\0', '').encode('utf-8')
+		email = email.decode('utf-8').replace('\0', '').encode('utf-8')
 
 		# Generate questions for subject
 
@@ -449,3 +449,108 @@ def alt_survey(request):
 			'DLs': languages
 		}
 		return render(request, 'alt_survey.html', context)
+
+def alt_summary(request):
+	subject_list = []
+	language_groups = {}
+	answer_key = Audio.objects.values_list('answer', flat=True)
+
+	for sub in Subject.objects.filter(interface=1):
+		transcriptions = get_transcriptions(sub)
+		if not transcriptions:
+			continue
+
+		correct = 0
+		total = 0
+		time = 0
+		q1q2_correct = 0
+		q1q2_total = 0
+		correct_by_tone = [0] * 6
+		total_by_tone = [0] * 6
+		for t in transcriptions:
+			time += t[2]
+			qn = t[0] - 1 # zero-based indexing
+			result = t[1]
+
+			# pad result with zeroes to match answer key length for zipping
+			if len(result) < len(answer_key[qn]):
+				result += '0' * (len(result) - len(answer_key[qn]))
+
+			for c, a in zip(result, answer_key[qn]):
+				tone_number = int(a) - 1
+				if c == a:
+					correct += 1
+				if qn == 2 or qn == 3:
+					total_by_tone[tone_number] += 1
+					if c == a:
+						q1q2_correct += 1
+						correct_by_tone[tone_number] += 1
+
+			total += len(answer_key[qn])
+			if qn == 2 or qn == 3:
+				q1q2_total += len(answer_key[qn])
+
+		score = correct / total
+
+		subject_list.append({
+			'subject': sub,
+			'score': int(score * 100),
+			'time': time,
+		})
+
+		dl = sub.dominant_language
+		if dl not in language_groups:
+			language_groups[dl] = {
+				'name': dl,
+				'subjects': 0,
+				'correct': 0,
+				'total': 0,
+				'q1q2_correct': 0,
+				'q1q2_total': 0,
+				'correct_by_tone': [0] * 6,
+				'total_by_tone': [0] * 6,
+				'time': 0,
+				'scores': [],
+			}
+
+		lg = language_groups[dl]
+		lg['subjects'] += 1
+		lg['correct'] += correct
+		lg['total'] += total
+		lg['q1q2_correct'] += q1q2_correct
+		lg['q1q2_total'] += q1q2_total
+		for i in range(0,6):
+			lg['correct_by_tone'][i] += correct_by_tone[i]
+			lg['total_by_tone'][i] += total_by_tone[i]
+		lg['time'] += time
+		lg['scores'].append(score)
+
+	language_group_list = []
+
+	for lang in language_groups:
+		lg = language_groups[lang]
+		lg['score'] = int(lg['correct'] / lg['total'] * 100)
+		lg['q1q2_score'] = int(lg['q1q2_correct'] / lg['q1q2_total'] * 100)
+		lg['time'] = lg['time'] // lg['subjects']
+		lg['score_by_tone'] = [int(x / y * 100) for x, y in zip(lg['correct_by_tone'], lg['total_by_tone'])]
+		language_group_list.append(language_groups[lang])
+
+		scores = lg['scores']
+		avg_score = sum(scores)/len(scores)
+		variance = 0
+		for score in scores:
+			diff = score - avg_score
+			variance += diff * diff
+		std_dev = (variance / len(scores)) ** 0.5
+		lg['std_err'] = "{0:.4f}".format(std_dev / (len(scores) ** 0.5))
+
+	subject_list = sorted(subject_list, key=lambda k: k['score'], reverse=True)
+	subject_list = sorted(subject_list, key=lambda k: k['subject'].dominant_language)
+	language_group_list = sorted(language_group_list, key=lambda k: k['score'], reverse=True)
+
+	context = {
+		'subjects': subject_list,
+		'language_groups': language_group_list,
+	}
+
+	return render(request, 'summary.html', context)

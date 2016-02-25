@@ -9,6 +9,7 @@ class Subject(models.Model):
 	gender = models.CharField(max_length=10)
 	age = models.IntegerField(default=0)
 	question_order = models.CharField(max_length=25)
+	interface = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.name + ":" + self.email
