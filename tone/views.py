@@ -48,7 +48,7 @@ def transcribe(request, subjectId, questionId):
 			'audio_file_path': 'data/audio/0.wav',
 			'alignments': alignments,
 		}
-		return render(request, 'feature_practice.html', context)
+		return render(request, 'number_practice.html', context)
 	else:
 
 		try:
@@ -71,7 +71,7 @@ def transcribe(request, subjectId, questionId):
 			'alignments': alignments,
 			'answers': previous_answer,
 		}
-		return render(request, 'feature_transcribe.html', context)
+		return render(request, 'number_transcribe.html', context)
 
 def start(request):
 
@@ -424,15 +424,15 @@ def alt_survey(request):
 		for qs in assignedQns:
 			times_question_used[int(qs.split(',')[2])] += 1
 
-		q3 = 5
-		for i in range(6, num_questions + 1):
+		q3 = 3
+		for i in range(4, num_questions + 1):
 			if times_question_used[i] < times_question_used[q3]:
 				q3 = i
 
 		if Subject.objects.all().count() % 2 == 0:
-			questionOrder = "3,4," + str(q3)
+			questionOrder = "1,2," + str(q3)
 		else:
-			questionOrder = "4,3," + str(q3)
+			questionOrder = "2,1," + str(q3)
 
 		sub = Subject.objects.create(name=name, email=email, dominant_language=dominantLanguage,
 			other_languages=otherLanguages, target_language=targetLanguage, gender=gender, age=age, question_order=questionOrder)
@@ -480,7 +480,7 @@ def alt_summary(request):
 				tone_number = int(a) - 1
 				if c == a:
 					correct += 1
-				if qn == 2 or qn == 3:
+				if qn == 0 or qn == 1:
 					total_by_tone[tone_number] += 1
 					if c == a:
 						q1q2_correct += 1
