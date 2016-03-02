@@ -487,7 +487,7 @@ def alt_summary(request):
 						correct_by_tone[tone_number] += 1
 
 			total += len(answer_key[qn])
-			if qn == 2 or qn == 3:
+			if qn == 0 or qn == 1:
 				q1q2_total += len(answer_key[qn])
 
 		score = correct / total
