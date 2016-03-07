@@ -65,3 +65,5 @@ target/
 
 data/
 /static/
+settings_secret.py
+private_key.pem
