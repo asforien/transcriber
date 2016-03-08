@@ -30,10 +30,13 @@
 						<table class="table">
 							<thead>
 								<tr>
-								<th>Language Group</th>
-								<th>Subjects</th>
-								<th>Avg. Score</th>
-								<th>Q1+Q2 Score</th>
+								<th>Language</th>
+								<th>Size</th>
+								<th>Score</th>
+								{% if interface == 1 %}
+								<th>Tone Dir.</th>
+								{% endif %}
+								<th>Q1+Q2</th>
 								<th>Tone 1</th>
 								<th>Tone 2</th>
 								<th>Tone 3</th>
@@ -49,6 +52,9 @@
 								<td>{{ lg.name }}</td>
 								<td>{{ lg.subjects }}</td>
 								<td>{{ lg.score }}%</td>
+								{% if interface == 1 %}
+								<td>{{ lg.direction_score }}%</td>
+								{% endif %}
 								<td>{{ lg.q1q2_score }}%</td>
 								<td>{{ lg.score_by_tone.0}}%</td>
 								<td>{{ lg.score_by_tone.1 }}%</td>

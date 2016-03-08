@@ -455,12 +455,15 @@ def alt_summary(request):
 	language_groups = {}
 	answer_key = Audio.objects.values_list('answer', flat=True)
 
+	tone_direction = " lrlfrl"
+
 	for sub in Subject.objects.filter(interface=1):
 		transcriptions = get_transcriptions(sub)
 		if not transcriptions:
 			continue
 
 		correct = 0
+		correct_direction = 0
 		total = 0
 		time = 0
 		q1q2_correct = 0
@@ -485,6 +488,8 @@ def alt_summary(request):
 					if c == a:
 						q1q2_correct += 1
 						correct_by_tone[tone_number] += 1
+				if tone_direction[int(c)] == tone_direction[int(a)]:
+					correct_direction += 1;
 
 			total += len(answer_key[qn])
 			if qn == 0 or qn == 1:
@@ -504,6 +509,7 @@ def alt_summary(request):
 				'name': dl,
 				'subjects': 0,
 				'correct': 0,
+				'correct_direction': 0,
 				'total': 0,
 				'q1q2_correct': 0,
 				'q1q2_total': 0,
@@ -516,6 +522,7 @@ def alt_summary(request):
 		lg = language_groups[dl]
 		lg['subjects'] += 1
 		lg['correct'] += correct
+		lg['correct_direction'] += correct_direction
 		lg['total'] += total
 		lg['q1q2_correct'] += q1q2_correct
 		lg['q1q2_total'] += q1q2_total
@@ -530,6 +537,7 @@ def alt_summary(request):
 	for lang in language_groups:
 		lg = language_groups[lang]
 		lg['score'] = int(lg['correct'] / lg['total'] * 100)
+		lg['direction_score'] = int(lg['correct_direction'] / lg['total'] * 100)
 		lg['q1q2_score'] = int(lg['q1q2_correct'] / lg['q1q2_total'] * 100)
 		lg['time'] = lg['time'] // lg['subjects']
 		lg['score_by_tone'] = [int(x / y * 100) for x, y in zip(lg['correct_by_tone'], lg['total_by_tone'])]
@@ -551,6 +559,7 @@ def alt_summary(request):
 	context = {
 		'subjects': subject_list,
 		'language_groups': language_group_list,
+		'interface': 1,
 	}
 
 	return render(request, 'summary.html', context)
