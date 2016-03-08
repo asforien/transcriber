@@ -112,5 +112,11 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
+# import secret settings not committed to Git repository
 from .settings_secret import *
-from .settings_local import *
+
+# import local settings if running locally
+try:
+    from .settings_local import *
+except:
+    pass
