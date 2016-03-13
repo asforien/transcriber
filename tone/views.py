@@ -97,7 +97,9 @@ def resume(request):
 		sub = Subject.objects.get(email=email)
 		done = Transcription.objects.filter(subject=sub).count()
 
-		if (done < 3):
+		if (done == 0):
+			return HttpResponseRedirect('/tone/' + str(sub.pk) + '/0')
+		elif (done < 3):
 			return HttpResponseRedirect('/tone/' + str(sub.pk) + '/' + str(done + 1))
 		else:
 			return HttpResponseRedirect('/tone/end')
