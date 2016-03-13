@@ -180,7 +180,7 @@ def summary(request, interface):
 	language_groups = {}
 	answer_key = Audio.objects.values_list('answer', flat=True)
 
-	for sub in Subject.objects.filter(interface=int(interface)):
+	for sub in Subject.objects.filter(interface=interface):
 		transcriptions = get_transcriptions(sub)
 		if not transcriptions:
 			continue
