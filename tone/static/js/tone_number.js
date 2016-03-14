@@ -41,7 +41,7 @@ $(function () {
 			});
 		}
 
-		if (typeof answers !== 'undefined')
+		if (typeof answers !== 'undefined') {
 			$(".transcription-answer").each(function(index, element) {
 				setTranscription($(this), answers.charAt(index));
 			});
