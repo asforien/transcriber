@@ -339,3 +339,14 @@ def send_email(sub):
 	server.login(username,password)
 	server.sendmail(fromaddr, toaddr, msg)
 	server.quit()
+
+# Redirects for old URLs
+
+def alt_start(request):
+	return HttpResponseRedirect('/')
+
+def summary_0(request):
+	return HttpResponseRedirect('/tone/summary/0')
+
+def summary_1(request):
+	return HttpResponseRedirect('/tone/summary/1')
