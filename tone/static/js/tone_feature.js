@@ -75,7 +75,7 @@ $(function () {
 		$(".transcription-value").each(function(i) {
 			var result = $(this).data("value");
 			
-			if (result == "?") {
+			if (result === undefined) {
 				complete = false;
 				$(this).addClass("incomplete");
 			}
