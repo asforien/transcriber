@@ -38,7 +38,7 @@ $(function () {
 			});
 		}
 
-		if (answers) {
+		if (typeof answers !== 'undefined') {
 			$(".transcription-answer").each(function(index, element) {
 				setTranscription($(this), answers.charAt(index));
 			});
