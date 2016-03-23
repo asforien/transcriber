@@ -62,6 +62,7 @@ $("form").validate({
 			required: true
 		},
 		otherLanguages: {
+			required: true,
 			maxlength: 255
 		},
 		gender: {
