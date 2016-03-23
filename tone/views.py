@@ -324,6 +324,7 @@ def send_email(sub):
 		"Your score for the experiment was " + str(correct) + "/" + str(total) + " (" + score + ")" + ".",
 		"Please let us know your preferred payment method (e.g. PayPal, bank transfer, or meet-up) so that we can process your reimbursement.",
 		"If you would not like to be reimbursed, you can choose to refuse payment as well.",
+		"This experiment is being funded by the Institute for Infocomm Research (I2R).",
 		"",
 		"If you know anyone who might be interested to participate in the experiment, please share the experiment URL with them:",
 		"http://transcriber.elasticbeanstalk.com",
