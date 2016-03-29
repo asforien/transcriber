@@ -150,12 +150,7 @@ def survey(request):
 		else:
 			questionOrder = "2,1," + str(q3)
 
-		# Use new interface if subject falls within one of the following language groups
-		# Or if they speak cantonese
-		new_interface_languages = ['English', 'Mandarin', 'Vietnamese']
 		interface = 0
-		if dominantLanguage in new_interface_languages or targetLanguage == True:
-			interface = 1
 
 		sub = Subject.objects.create(name=name, email=email, dominant_language=dominantLanguage,
 			other_languages=otherLanguages, target_language=targetLanguage, gender=gender, age=age, question_order=questionOrder, interface=interface)
