@@ -303,30 +303,49 @@ def get_transcriptions(sub):
 def send_email(sub):
 
 	correct, total, time = get_score(sub)
-	score = str(int(correct / float(total) * 100)) + '%'
+	score = str(int(correct / total * 100)) + '%'
 
 	import smtplib
 	fromaddr = 'jeremy.yapjl@gmail.com'
 	toaddr  = sub.email.strip()
-	msg = "\r\n".join([
-		"From: jeremy.yapjl@gmail.com",
-		"To: " + sub.email,
-		"Subject: Cantonese Tone Recognition Experiment",
-		"",
-		"Hi " + sub.name + ",",
-		"",
-		"Thanks for participating in our experiment!",
-		"Your score for the experiment was " + str(correct) + "/" + str(total) + " (" + score + ")" + ".",
-		"Please let us know your preferred payment method (e.g. PayPal, bank transfer, or meet-up) so that we can process your reimbursement.",
-		"If you would not like to be reimbursed, you can choose to refuse payment as well.",
-		"This experiment is being funded by the Institute for Infocomm Research (I2R).",
-		"",
-		"If you know anyone who might be interested to participate in the experiment, please share the experiment URL with them:",
-		"http://transcriber.elasticbeanstalk.com",
-		"",
-		"Thanks",
-		"Jeremy",
-		])
+	if int(correct / total * 100) < 20 and time < 600:
+		msg = "\r\n".join([
+			"From: jeremy.yapjl@gmail.com",
+			"To: " + sub.email,
+			"Subject: Cantonese Tone Recognition Experiment",
+			"",
+			"Hi " + sub.name + ",",
+			"",
+			"Thanks for participating in our experiment!",
+			"Your score for the experiment was " + str(correct) + "/" + str(total) + " (" + score + ")" + ".",
+			"Unfortunately, you did not score well enough to be eligible for reimbursement.",
+			"",
+			"If you know anyone who might be interested to participate in the experiment, please share the experiment URL with them:",
+			"http://transcriber.elasticbeanstalk.com",
+			"",
+			"Thanks",
+			"Jeremy",
+			])
+	else:
+		msg = "\r\n".join([
+			"From: jeremy.yapjl@gmail.com",
+			"To: " + sub.email,
+			"Subject: Cantonese Tone Recognition Experiment",
+			"",
+			"Hi " + sub.name + ",",
+			"",
+			"Thanks for participating in our experiment!",
+			"Your score for the experiment was " + str(correct) + "/" + str(total) + " (" + score + ")" + ".",
+			"Please let us know your preferred payment method (e.g. PayPal, bank transfer, or meet-up) so that we can process your reimbursement.",
+			"If you would not like to be reimbursed, you can choose to refuse payment as well.",
+			"This experiment is being funded by the Institute for Infocomm Research (I2R).",
+			"",
+			"If you know anyone who might be interested to participate in the experiment, please share the experiment URL with them:",
+			"http://transcriber.elasticbeanstalk.com",
+			"",
+			"Thanks",
+			"Jeremy",
+			])
 	username = 'jeremy.yapjl@gmail.com'
 	password = 'nclexeijhedptgdq'
 	server = smtplib.SMTP('smtp.gmail.com:587')
