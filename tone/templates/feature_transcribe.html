@@ -24,13 +24,6 @@
 					  Instructions
 				</button>
 				<div class="pull-right">
-					{% if not question_id == "1" %}
-					<a class="btn btn-default" href="/tone/{{ subject_id }}/{{ prev_qn_id }}">
-						<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
-						Back
-					</a>
-					{% endif %}
-
 					<form action="/tone/{{ subject_id }}/{{ question_id }}" method="post" class="form-inline" style="display:inline-block;">{% csrf_token %}
 						<span>&nbsp;&nbsp;Question {{question_id}} of 3&nbsp;&nbsp;</span>
 						<input type="hidden" name="result" id="result">
