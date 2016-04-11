@@ -343,8 +343,7 @@ def send_email(sub):
 			"If you know anyone who might be interested to participate in the experiment, please share the experiment URL with them:",
 			"http://transcriber.elasticbeanstalk.com",
 			"",
-			"Thanks",
-			"Jeremy",
+			"This is an automatically generated email."
 			])
 	username = 'jeremy.yapjl@gmail.com'
 	password = 'nclexeijhedptgdq'
