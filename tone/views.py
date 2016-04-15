@@ -31,8 +31,8 @@ def transcribe(request, subjectId, questionId):
 			if c == a:
 				score += 1
 
-		Transcription.objects.update_or_create(subject=subject, audio=audio,
-			defaults={'result': result, 'timeTaken': timeTaken, 'score': score})
+		Transcription.objects.create(subject=subject, audio=audio,
+			result=result, timeTaken=timeTaken, score=score)
 
 		if int(questionId) == 3:
 			t = threading.Thread(target=send_email, args=[subject])
