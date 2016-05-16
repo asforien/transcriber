@@ -4,7 +4,9 @@ Transcription interface for crowdsourcing experiment
 
 ## Requirements
 
+Python
 Django
+pip package manager
 
 ## Run Locally
 
