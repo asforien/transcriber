@@ -73,5 +73,5 @@ The summary pages can be viewed at /tone/summary/0 and /tone/summary/1
 | File | Description |
 |---|---|
 | requirements.txt | Python requirements to be installed on the environment |
-| .ebignore | Similar to .gitignore, lists files that should not be included when deploying to Elastic Beanstalk |
-| .ebextensions/01-transcriber.config | List of commands to run when deploying to Elastic Beanstalk |
+| .ebignore | Files that will not be  deployed to Elastic Beanstalk |
+| .ebextensions/01-transcriber.config | Commands to run when deploying to Elastic Beanstalk |
