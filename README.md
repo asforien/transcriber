@@ -8,7 +8,15 @@ Django
 
 ## Run Locally
 
-1. Generate the secret keys not included with this git repository. The following keys are required:
+1. Optional: Create a virtual environment for the project. https://virtualenv.pypa.io/en/latest/
+
+   ```pip install virtualenv```
+   
+   ```virtualenv transcriber-env```
+   
+   ```source transcriber-env/bin/activate```
+
+2. Generate the secret keys not included with this git repository. The following keys are required:
 
   | Key | Location |
   |---|---|
@@ -16,17 +24,17 @@ Django
   | RSA public key | /tone/static/js/resume.js, /tone/static/js/survey.js |
   | RSA private key | /tone/static/rsa/private_key.pem |
 
-2. Install python dependencies. Comment out mysqlclient in requirements.txt if not using MySQL locally.
+3. Install python dependencies. Comment out mysqlclient in requirements.txt if not using MySQL locally.
 
    ```pip install -r requirements.txt```
    
-3. Initialize the database
+4. Initialize the database
 
    ```python manage.py makemigrations```
    
    ```python manage.py migrate```
 
-4. Start the server
+5. Start the server
 
    ```python manage.py runserver```
 
@@ -61,6 +69,12 @@ The summary pages can be viewed at /tone/summary/0 and /tone/summary/1
    Configure the EC2 security group associated with the database to accept inbound MySQL requests from port 3306 and any source. Then, run the following command with the correct RDS_ENDPOINT, USERNAME (default is ebroot) and PASSWORD.
 
    ```mysqldump ebdb -h RDS_ENDPOINT -u USERNAME -pPASSWORD -P 3306 > rds.sql```
+   
+6. Terminate the EB environment and associated database.
+
+   ```eb terminate```
+   
+Some actions can also be performed from the web console. https://console.aws.amazon.com/
 
 ## Important Django files
 
