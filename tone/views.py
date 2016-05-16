@@ -327,7 +327,7 @@ def send_email(sub):
 			])
 	else:
 		msg = "\r\n".join([
-			"From: jeremy.yapjl@gmail.com",
+			"From: " + settings.RESULT_EMAIL_FROM,
 			"To: " + sub.email,
 			"Subject: Cantonese Tone Recognition Experiment",
 			"",
@@ -344,8 +344,8 @@ def send_email(sub):
 			"",
 			"This is an automatically generated email."
 			])
-	username = 'jeremy.yapjl@gmail.com'
-	password = 'nclexeijhedptgdq'
+	username = settings.RESULT_EMAIL_FROM
+	password = settings.RESULT_EMAIL_FROM_PASSWORD
 	server = smtplib.SMTP('smtp.gmail.com:587')
 	server.ehlo()
 	server.starttls()
