@@ -305,12 +305,9 @@ def send_email(sub):
 	correct, total, time = get_score(sub)
 	score = str(int(correct / total * 100)) + '%'
 
-	import smtplib
-	fromaddr = 'jeremy.yapjl@gmail.com'
-	toaddr  = sub.email.strip()
 	if int(correct / total * 100) < 20 and time < 600:
 		msg = "\r\n".join([
-			"From: jeremy.yapjl@gmail.com",
+			"From: " + settings.RESULT_EMAIL_FROM,
 			"To: " + sub.email,
 			"Subject: Cantonese Tone Recognition Experiment",
 			"",
@@ -344,6 +341,11 @@ def send_email(sub):
 			"",
 			"This is an automatically generated email."
 			])
+
+	import smtplib
+	
+	fromaddr = settings.RESULT_EMAIL_FROM
+	toaddr  = sub.email.strip()
 	username = settings.RESULT_EMAIL_FROM
 	password = settings.RESULT_EMAIL_FROM_PASSWORD
 	server = smtplib.SMTP('smtp.gmail.com:587')
