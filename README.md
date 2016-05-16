@@ -36,13 +36,17 @@ Django
 
 5. Start the server
 
+   The default location for the website is localhost:8000. This can be changed by adding an argument. 
+
    ```python manage.py runserver```
+   
+   ```python manage.py runserver 192.168.1.123:8000```
 
 Log in to the admin console at /admin and change the password. Username is ```admin```, default password is ```P@ssw0rd```
 
 The summary pages can be viewed at /tone/summary/0 and /tone/summary/1
 
-## Deploying to Amazon Elastic Beanstalk instance
+## Using Amazon Elastic Beanstalk
 
 1. Install the AWS EB Command Line Interface, available as a pip package
 
