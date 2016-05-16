@@ -4,18 +4,16 @@ Transcription interface for crowdsourcing experiment
 
 ## Requirements
 
-Python
-Django
+Python  
+Django  
 pip package manager
 
 ## Run Locally
 
 1. Optional: Create a virtual environment for the project. https://virtualenv.pypa.io/en/latest/
 
-   ```pip install virtualenv```
-   
-   ```virtualenv transcriber-env```
-   
+   ```pip install virtualenv```  
+   ```virtualenv transcriber-env```  
    ```source transcriber-env/bin/activate```
 
 2. Generate the secret keys not included with this git repository. The following keys are required:
@@ -32,16 +30,14 @@ pip package manager
    
 4. Initialize the database
 
-   ```python manage.py makemigrations```
-   
+   ```python manage.py makemigrations```  
    ```python manage.py migrate```
 
 5. Start the server
 
    The default location for the website is localhost:8000. This can be changed by adding an argument. 
 
-   ```python manage.py runserver```
-   
+   ```python manage.py runserver```  
    ```python manage.py runserver 192.168.1.123:8000```
 
 Log in to the admin console at /admin and change the password. Username is ```admin```, default password is ```P@ssw0rd```
