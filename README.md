@@ -74,7 +74,7 @@ The summary pages can be viewed at /tone/summary/0 and /tone/summary/1
 
 6. Download results in csv format
    
-   ```mysql -uUSERNAME -pPASSWORD -P 3306 --database=ebdb -h RDS_ENDPOINT -e "select concat(id,',',dominant_language,',',interface) FROM tone_subject" > subjects.csv```
+   ```mysql -uUSERNAME -pPASSWORD -P 3306 --database=ebdb -h RDS_ENDPOINT -e "select concat(id,',',dominant_language,',',interface) FROM tone_subject" > subjects.csv```  
    ```mysql -uUSERNAME -pPASSWORD -P 3306 --database=ebdb -h RDS_ENDPOINT -e "select concat(id,',',result,',',timeTaken,',',score,',',audio_id,',',subject_id) FROM tone_transcription" > transcriptions.csv```
 
 7. Terminate the EB environment and associated database.
