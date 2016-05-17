@@ -70,9 +70,14 @@ The summary pages can be viewed at /tone/summary/0 and /tone/summary/1
 
    Configure the EC2 security group associated with the database to accept inbound MySQL requests from port 3306 and any source. Then, run the following command with the correct RDS_ENDPOINT, USERNAME (default is ebroot) and PASSWORD.
 
-   ```mysqldump ebdb -h RDS_ENDPOINT -u USERNAME -pPASSWORD -P 3306 > rds.sql```
+   ```mysqldump ebdb -h RDS_ENDPOINT -uUSERNAME -pPASSWORD -P 3306 > rds.sql```
+
+6. Download results in csv format
    
-6. Terminate the EB environment and associated database.
+   ```mysql -uUSERNAME -pPASSWORD -P 3306 --database=ebdb -h RDS_ENDPOINT -e "select concat(id,',',dominant_language,',',interface) FROM tone_subject" > subjects.csv```
+   ```mysql -uUSERNAME -pPASSWORD -P 3306 --database=ebdb -h RDS_ENDPOINT -e "select concat(id,',',result,',',timeTaken,',',score,',',audio_id,',',subject_id) FROM tone_transcription" > transcriptions.csv```
+
+7. Terminate the EB environment and associated database.
 
    ```eb terminate```
    
